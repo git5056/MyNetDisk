@@ -13,7 +13,72 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDiskHelper", "NetDiskHel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDiskDomain", "NetDiskDomain\NetDiskDomain.csproj", "{FBFF4710-4A5F-453B-837F-49D0D96E61ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{B3C6EF80-D359-4E6D-8CCF-17A5A44D925D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{E66545E2-49B7-4DB2-98DC-703BDE4F05C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spring-Net", "Spring-Net", "{C68C724E-8898-4F53-9AF6-DB58ED000760}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Common.Logging.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Common.Logging.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Aop.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Core.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate20.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate21.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.NHibernate30.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Data.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.Nms.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Messaging.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Scheduling.Quartz.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Services.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Template.Velocity.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.Microsoft.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Testing.NUnit.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Extensions.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.dll = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.dll
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.Mvc.xml
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.pdb = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.pdb
+		..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.xml = ..\..\api\Spring.NET3\Spring.NET\bin\net\4.0\release\Spring.Web.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{7530DF43-D9C4-4F16-906F-6D71E8A9E2BB}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Antlr3.Runtime.dll = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Antlr3.Runtime.dll
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Iesi.Collections.dll = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Iesi.Collections.dll
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Iesi.Collections.license.txt = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Iesi.Collections.license.txt
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\log4net.dll = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\log4net.dll
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\log4net.license.txt = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\log4net.license.txt
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\NHibernate.dll = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\NHibernate.dll
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\NHibernate.license.txt = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\NHibernate.license.txt
+		..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Remotion.Data.Linq.dll = ..\..\api\Spring.NET3\Spring.NET\lib\NHibernate30\net\4.0\Remotion.Data.Linq.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +109,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C68C724E-8898-4F53-9AF6-DB58ED000760} = {E66545E2-49B7-4DB2-98DC-703BDE4F05C2}
+		{7530DF43-D9C4-4F16-906F-6D71E8A9E2BB} = {E66545E2-49B7-4DB2-98DC-703BDE4F05C2}
 	EndGlobalSection
 EndGlobal

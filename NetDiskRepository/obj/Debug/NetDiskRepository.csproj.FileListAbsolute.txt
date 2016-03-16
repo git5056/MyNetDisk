@@ -1,0 +1,4 @@
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskRepository.dll
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskRepository.pdb
+D:\vs2013\github\MyNetDisk\NetDiskRepository\obj\Debug\NetDiskRepository.dll
+D:\vs2013\github\MyNetDisk\NetDiskRepository\obj\Debug\NetDiskRepository.pdb

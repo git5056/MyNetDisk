@@ -1,0 +1,4 @@
+D:\vs2013\github\MyNetDisk\NetDiskHelper\bin\Debug\NetDiskHelper.dll
+D:\vs2013\github\MyNetDisk\NetDiskHelper\bin\Debug\NetDiskHelper.pdb
+D:\vs2013\github\MyNetDisk\NetDiskHelper\obj\Debug\NetDiskHelper.dll
+D:\vs2013\github\MyNetDisk\NetDiskHelper\obj\Debug\NetDiskHelper.pdb

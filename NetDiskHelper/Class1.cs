@@ -7,5 +7,5 @@ namespace NetDiskHelper
 {
     public class Class1
     {
-    }r
+    }
 }
