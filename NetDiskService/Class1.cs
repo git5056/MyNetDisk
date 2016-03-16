@@ -7,5 +7,6 @@ namespace NetDiskService
 {
     public class Class1
     {
+        
     }
 }
