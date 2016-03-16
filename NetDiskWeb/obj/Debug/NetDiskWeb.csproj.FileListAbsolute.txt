@@ -40,3 +40,4 @@ D:\vs2013\github\MyNetDisk\NetDiskWeb\bin\zh-Hans\System.Web.WebPages.Deployment
 D:\vs2013\github\MyNetDisk\NetDiskWeb\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 D:\vs2013\github\MyNetDisk\NetDiskWeb\obj\Debug\NetDiskWeb.dll
 D:\vs2013\github\MyNetDisk\NetDiskWeb\obj\Debug\NetDiskWeb.pdb
+D:\vs2013\github\MyNetDisk\NetDiskWeb\obj\Debug\NetDiskWeb.csprojResolveAssemblyReference.cache
