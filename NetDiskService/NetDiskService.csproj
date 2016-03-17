@@ -39,7 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\DownloadRecondService.cs" />
+    <Compile Include="Impl\FileSourceService.cs" />
+    <Compile Include="Impl\FileSourceStatisticsService.cs" />
+    <Compile Include="Interface\ISessionService.cs" />
+    <Compile Include="Impl\NodeTreeService.cs" />
     <Compile Include="Impl\Service.cs" />
+    <Compile Include="Impl\SessionService.cs" />
+    <Compile Include="Impl\UploadRecondService.cs" />
+    <Compile Include="Impl\UserNodeMappingService.cs" />
+    <Compile Include="Impl\UserService.cs" />
+    <Compile Include="Interface\IDownloadRecondService.cs" />
     <Compile Include="Interface\IFileSourceService.cs" />
     <Compile Include="Interface\IFileSourceStatisticsService.cs" />
     <Compile Include="Interface\INodeTreeService.cs" />
@@ -51,8 +61,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ServiceBeanCfg.xml" />
-    <Content Include="TransactionCfg.xml" />
+    <EmbeddedResource Include="ServiceBeanCfg.xml" />
+    <EmbeddedResource Include="TransactionCfg.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,10 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
   
-  <object id="SingerService" parent="BaseTransactionManager">
+  <object id="DownloadRecondService" parent="BaseTransactionManager">
     <property name="Target">
-      <object type="Service.impl.SingerService,Service">
-        <property name="Repository" ref="repository.singer"/>
+      <object type="NetDiskService.DownloadRecondService,NetDiskService">
+        <property name="Repository" ref="repository.downloadRecond"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="FileSourceService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.FileSourceService,NetDiskService">
+        <property name="Repository" ref="repository.fileSource"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="FileSourceStatisticsService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.FileSourceStatisticsService">
+        <property name="Repository" ref="repository.fileSourceStatistics"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="NodeTreeService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.NodeTreeService,NetDiskService">
+        <property name="Repository" ref="repository.nodeTree"/>
+      </object>
+    </property>
+  </object>
+
+
+  <object id="SessionService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.SessionService,NetDiskService">
+        <property name="Repository" ref="repository.session"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="UploadRecondService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.UploadRecondService,NetDiskService">
+        <property name="Repository" ref="repository.uploadRecond"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="UserNodeMappingService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.UserNodeMappingService,NetDiskService">
+        <property name="Repository" ref="repository.userNodeMapping"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="UserService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.UserService,NetDiskService">
+        <property name="Repository" ref="repository.user"/>
       </object>
     </property>
   </object>

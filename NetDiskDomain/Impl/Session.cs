@@ -26,14 +26,16 @@ namespace NetDiskDomain
             get;
             set;
         }
-        /// <summary>
-        /// userId
-        /// </summary>
-        public virtual int userId
-        {
-            get;
-            set;
-        }
+
+        ///// <summary>
+        ///// userId
+        ///// </summary>
+        //public virtual int userId
+        //{
+        //    get;
+        //    set;
+        //}
+
         /// <summary>
         /// cTime
         /// </summary>
@@ -61,7 +63,7 @@ namespace NetDiskDomain
         {
             get
             {
-                if (_User ==null)
+                if (_User._id ==1)
                 {
                     return new Vistor(this);
                 }

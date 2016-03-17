@@ -58,9 +58,9 @@
       <Project>{fbff4710-4a5f-453b-837f-49d0d96e61ed}</Project>
       <Name>NetDiskDomain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NetDiskRepository\NetDiskRepository.csproj">
-      <Project>{de4bd7c3-6aa2-4da2-b676-3c77842a1774}</Project>
-      <Name>NetDiskRepository</Name>
+    <ProjectReference Include="..\NetDiskService\NetDiskService.csproj">
+      <Project>{d132c308-7dd1-41e2-be3d-ee26ff802636}</Project>
+      <Name>NetDiskService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ using NetDiskDomain;
 
 namespace NetDiskService
 {
-    public interface IUploadRecondRepository : IService<UploadRecond>
+    public interface IUploadRecondService : IService<UploadRecond>
     {
         #region Extension Methods
 

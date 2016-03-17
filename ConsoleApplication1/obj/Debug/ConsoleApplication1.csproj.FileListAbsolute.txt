@@ -27,3 +27,5 @@ D:\vs2013\github\MyNetDisk\ConsoleApplication1\bin\Debug\Spring.Aop.xml
 D:\vs2013\github\MyNetDisk\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
 D:\vs2013\github\MyNetDisk\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 D:\vs2013\github\MyNetDisk\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\vs2013\github\MyNetDisk\ConsoleApplication1\bin\Debug\NetDiskService.dll
+D:\vs2013\github\MyNetDisk\ConsoleApplication1\bin\Debug\NetDiskService.pdb

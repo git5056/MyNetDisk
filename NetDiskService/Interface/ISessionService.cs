@@ -6,9 +6,11 @@ using NetDiskDomain;
 
 namespace NetDiskService
 {
-    public interface IUserNodeMappingService : IService<UserNodeMapping>
+    public interface ISessionService : IService<Session>
     {
         #region Extension Methods
+
+        IUserRunTime GetCurrentUser();
 
         #endregion
     }

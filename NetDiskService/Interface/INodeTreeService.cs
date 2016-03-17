@@ -6,7 +6,7 @@ using NetDiskDomain;
 
 namespace NetDiskService
 {
-    public interface INodeTreeRepository : IService<NodeTree>
+    public interface INodeTreeService : IService<NodeTree>
     {
         #region Extension Methods
 

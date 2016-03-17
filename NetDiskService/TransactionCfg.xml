@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
   <object id="transactionManager"
-       type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate21">
+       type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate30">
     <property name="DbProvider" ref="DbProvider"/>
     <property name="SessionFactory" ref="NHibernateSessionFactory"/>
   </object>
@@ -24,10 +24,12 @@
         <add key="Update*" value="PROPAGATION_REQUIRED"/>
         <add key="Delete*" value="PROPAGATION_REQUIRED"/>
         <add key="Add*" value="PROPAGATION_REQUIRED"/>
-        <add key="Get*" value="PROPAGATION_SUPPORTS,readOnly"/>
+        <!--<add key="Get*" value="PROPAGATION_SUPPORTS,readOnly"/>-->
+        <add key="Get*" value="PROPAGATION_REQUIRED"/>
         <add key="AddSong" value="PROPAGATION_REQUIRED"/>
         <add key="Find*" value="PROPAGATION_REQUIRED"/>
         <add key="LatestSongs" value="PROPAGATION_SUPPORTS,readOnly"/>
+        <add key="*" value="PROPAGATION_REQUIRED"/>
         <!--<add key="Find*" value="PROPAGATION_SUPPORTS,readOnly"/>-->
         <!--<add key="FindById" value="PROPAGATION_SUPPORTS,readOnly"/>-->
         <!--<add key="Load*" value="PROPAGATION_SUPPORTS,readOnly"/>-->

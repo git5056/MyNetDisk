@@ -10,6 +10,8 @@ namespace NetDiskRepository
     {
         #region Extension Methods
 
+        IUserRunTime GetCurrentUser(string sessionid);
+
         #endregion
     }
 }

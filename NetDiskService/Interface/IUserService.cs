@@ -7,7 +7,7 @@ using NetDiskDomain;
 namespace NetDiskService
 {
 
-    public interface IUserRepository : IService<UserZero>
+    public interface IUserService : IService<UserZero>
     {
         #region Extension Methods
 

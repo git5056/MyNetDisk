@@ -52,6 +52,13 @@ namespace NetDiskDomain
         }
 
         #endregion
+
+        #region private field
+
+        private Session _session;
+
+        #endregion
+
         public virtual void Upfile()
         {
             throw new NotImplementedException();
@@ -66,11 +73,11 @@ namespace NetDiskDomain
         {
             get
             {
-                throw new NotImplementedException();
+                return _session;
             }
             set
             {
-                throw new NotImplementedException();
+                _session = value;
             }
         }
 

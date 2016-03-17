@@ -35,7 +35,7 @@ namespace NetDiskRepository
         }
 
         /// <summary>
-        /// bug,,,
+        /// FindByHQL
         /// </summary>
         /// <param name="hql"></param>
         /// <param name="args"></param>
@@ -48,7 +48,7 @@ namespace NetDiskRepository
                 var query = session.CreateQuery(hql);
                 for (int i = 0; args != null && i < args.Length; i++)
                 {
-                    query.SetParameter(i, args);
+                    query.SetParameter(i, args[0]);
                 }
                 return query.List<T>();
             }

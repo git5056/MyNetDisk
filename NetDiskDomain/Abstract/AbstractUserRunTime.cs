@@ -27,7 +27,7 @@ namespace NetDiskDomain
             session.cTime = DateTime.Now;
             session.enabled = true;
             session.sessionId = Guid.NewGuid().ToString("N");
-            session.userId = GetUserId();
+            //session.userId = GetUserId();
             _Session = session;
         }
 

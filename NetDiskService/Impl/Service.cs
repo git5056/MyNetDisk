@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NetDiskService.Impl
+namespace NetDiskService
 {
     public class Service<T> : IService<T>, IRepositoryAware<T>
     {

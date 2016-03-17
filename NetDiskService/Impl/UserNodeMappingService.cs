@@ -6,10 +6,7 @@ using NetDiskDomain;
 
 namespace NetDiskService
 {
-    public interface IUserNodeMappingService : IService<UserNodeMapping>
+    public class UserNodeMappingService : Service<UserNodeMapping>, IUserNodeMappingService
     {
-        #region Extension Methods
-
-        #endregion
     }
 }
