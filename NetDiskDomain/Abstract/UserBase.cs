@@ -6,7 +6,7 @@ using System.Text;
 namespace NetDiskDomain
 {
     //user
-    public abstract class UserBase : IUser
+    public class UserBase : IUser
     {
 
         #region public property
@@ -44,7 +44,6 @@ namespace NetDiskDomain
         }
 
         #endregion
-
 
     }
 

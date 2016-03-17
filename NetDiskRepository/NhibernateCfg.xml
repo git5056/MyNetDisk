@@ -13,7 +13,7 @@
                connectionString="Server=${db.datasource};database=${db.database};uid=${db.user};pwd=${db.password};"/>
 
   <!--SessionFactory对象，其中包括一些比较重要的属性 -->
-  <object id="NHibernateSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate21">
+  <object id="NHibernateSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate30">
     <property name="DbProvider" ref="DbProvider"/>
     <property name="MappingAssemblies">
       <list>

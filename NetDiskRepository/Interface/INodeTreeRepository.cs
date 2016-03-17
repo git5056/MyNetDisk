@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NetDiskDomain;
 
-namespace NetDiskRepository.Interface
+namespace NetDiskRepository
 {
     public interface INodeTreeRepository : IRepository<NodeTree>
     {

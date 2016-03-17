@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0"  encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
-	<class name="NetDiskDomain.User, NetDiskDomain" table="user">
-		<id name="_id" column="_id" type="int" unsaved-value="0">
-      			<generator class="native" />       			
-      	</id>      		
-		<property name="userId" column="userId" type="string"  />
-		<property name="userPwd" column="userPwd" type="string"  />
-		<property name="enabled" column="enabled" type="bool"  />
-				
-	</class>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain" auto-import="true" >
+  <class name="NetDiskDomain.UserBase, NetDiskDomain" table="[user]"  >
+    <!--abstract="true"-->
+    <id name="_id" column="_id" type="int"  unsaved-value="0" >
+      <generator class="native" />
+    </id>
+    <property name="userId" column="userId" type="string"  />
+    <property name="userPwd" column="[userPwd]" type="string"  />
+    <property name="enabled" column="[enabled]" type="bool"  />
+
+  </class>
 </hibernate-mapping>

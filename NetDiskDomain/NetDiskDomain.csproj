@@ -62,14 +62,19 @@
       <Name>NetDiskHelper</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="NHMapping\downloadRecond.hbm.xml" />
+    <Content Include="NHMapping\downloadRecond.hbm.xml" />
     <EmbeddedResource Include="NHMapping\fileSource.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\fileSourceStatistics.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\nodeTree.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\uploadRecond.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\user.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\userNodeMapping.hbm.xml" />
+    <Content Include="NHMapping\fileSourceStatistics.hbm.xml" />
+    <Content Include="NHMapping\nodeTree.hbm.xml" />
+    <Content Include="NHMapping\uploadRecond.hbm.xml" />
+    <Content Include="NHMapping\userNodeMapping.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NHMapping\user.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
