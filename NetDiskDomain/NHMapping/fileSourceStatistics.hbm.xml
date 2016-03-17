@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
+	<class name="NetDiskDomain.FileSourceStatistics, Maticsoft" table="fileSourceStatistics">
+		<id name="fileSourceId" column="fileSourceId" type="int" unsaved-value="0">
+      			      			
+      	</id>      		
+		<property name="downCount" column="downCount" type="int"  />
+		<property name="uploadCount" column="uploadCount" type="int"  />
+				
+	</class>
+</hibernate-mapping>

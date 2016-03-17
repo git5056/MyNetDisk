@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
+	<class name="NetDiskDomain.FileSource, NetDiskDomain" table="fileSource">
+		<id name="_id" column="_id" type="int" unsaved-value="0">
+      			<generator class="native" />       			
+      	</id>      		
+		<property name="md5" column="md5" type="string"  />
+		<property name="isLocal" column="isLocal" type="bool"  />
+		<property name="content_type" column="content_type" type="string"  />
+		<property name="postfix" column="postfix" type="string"  />
+		<property name="path" column="path" type="string"  />
+		<property name="deleted" column="deleted" type="bool"  />
+		<property name="enabled" column="enabled" type="bool"  />
+				
+	</class>
+</hibernate-mapping>

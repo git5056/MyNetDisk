@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
+	<class name="NetDiskDomain.UploadRecond, NetDiskDomain" table="uploadRecond">
+		<id name="_id" column="_id" type="int" unsaved-value="0">
+      			<generator class="native" />       			
+      	</id>      		
+		<property name="fileSourceId" column="fileSourceId" type="int"  />
+		<property name="userId" column="userId" type="int"  />
+		<property name="uploadTime" column="uploadTime" type="DateTime"  />
+		<property name="flashUp" column="flashUp" type="bool"  />
+				
+	</class>
+</hibernate-mapping>
