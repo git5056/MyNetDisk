@@ -59,6 +59,7 @@
     <Compile Include="Impl\FileSourceStatisticsRepository.cs" />
     <Compile Include="Impl\NodeTreeRepository.cs" />
     <Compile Include="Impl\Repository.cs" />
+    <Compile Include="Impl\SessionRepository.cs" />
     <Compile Include="Impl\UploadRecondRepository.cs" />
     <Compile Include="Impl\UserNodeMappingRepository.cs" />
     <Compile Include="Impl\UserRepository.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Interface\IFileSourceStatisticsRepository.cs" />
     <Compile Include="Interface\INodeTreeRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\IUploadRecondRepository.cs" />
     <Compile Include="Interface\IUserNodeMappingRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />

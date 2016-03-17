@@ -26,6 +26,11 @@
     <property name="HibernateTemplate" ref="HibernateTemplate" />
   </object>
 
+
+  <object id="repository.session" type="NetDiskRepository.SessionRepository, NetDiskRepository" >
+    <property name="HibernateTemplate" ref="HibernateTemplate" />
+  </object>
+  
   <object id="repository.user" type="NetDiskRepository.UserRepository, NetDiskRepository" >
     <property name="HibernateTemplate" ref="HibernateTemplate" />
   </object>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"  encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain" auto-import="true" >
-  <class name="NetDiskDomain.UserBase, NetDiskDomain" table="[user]" abstract="true" >
+  <class name="NetDiskDomain.UserZero, NetDiskDomain" table="[user]" abstract="true" >
     <id name="_id" column="_id" type="int"  unsaved-value="0" >
       <generator class="native" />
     </id>

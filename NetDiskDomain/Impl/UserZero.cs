@@ -7,6 +7,7 @@ namespace NetDiskDomain
 {
     public class UserZero : AbstractUserRunTime, IFileManager
     {
+        public UserZero() { }
         public UserZero(Session session)
         {
             if (session == null)
@@ -51,12 +52,12 @@ namespace NetDiskDomain
         }
 
         #endregion
-        public void Upfile()
+        public virtual void Upfile()
         {
             throw new NotImplementedException();
         }
 
-        public void Downfile()
+        public virtual void Downfile()
         {
             throw new NotImplementedException();
         }
@@ -77,5 +78,6 @@ namespace NetDiskDomain
         {
             return _id;
         }
+
     }
 }

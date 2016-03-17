@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0"  encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Maticsoft" namespace="Maticsoft">
-	<class name="Maticsoft.Entity.session, Maticsoft" table="session">
+	<class name="NetDiskDomain.Session, NetDiskDomain" table="session">
 		<id name="_id" column="_id" type="int" unsaved-value="0">
       			<generator class="native" />       			
       	</id>      		
 		<property name="sessionId" column="sessionId" type="string"  />
-		<property name="userId" column="userId" type="int"  />
 		<property name="cTime" column="cTime" type="DateTime"  />
 		<property name="enabled" column="[enabled]" type="bool"  />
-				
+    <!--<property name="userId" column="userId" type="int"  />-->
+    <many-to-one name="_User" class="NetDiskDomain.UserZero" not-null="false"
+                column="userId" >
+    </many-to-one>
 	</class>
 </hibernate-mapping>

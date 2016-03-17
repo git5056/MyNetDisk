@@ -57,7 +57,7 @@ namespace NetDiskDomain
             set;
         }
 
-        public AbstractUserRunTime CurrentUser
+        public virtual IUserRunTime CurrentUser
         {
             get
             {
@@ -67,7 +67,8 @@ namespace NetDiskDomain
                 }
                 else
                 {
-                    return new UserZero(this);
+                    _User._Session = this;
+                    return _User;
                 }
             }
         }

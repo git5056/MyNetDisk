@@ -54,7 +54,7 @@
     <Compile Include="Interface\IUserRunTime.cs" />
     <Compile Include="NodeTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="Impl\Session.cs" />
     <Compile Include="UploadRecond.cs" />
     <Compile Include="UserNodeMapping.cs" />
   </ItemGroup>

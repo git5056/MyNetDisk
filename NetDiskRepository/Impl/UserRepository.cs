@@ -6,7 +6,7 @@ using NetDiskDomain;
 
 namespace NetDiskRepository
 {
-    public class UserRepository : Repository<UserBase>, IUserRepository
+    public class UserRepository : Repository<UserZero>, IUserRepository
     {
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using NetDiskDomain;
 
-namespace NetDiskService
+namespace NetDiskRepository
 {
-
-    public interface IUserRepository : IService<UserZero>
+    public interface ISessionRepository : IRepository<Session>
     {
         #region Extension Methods
 

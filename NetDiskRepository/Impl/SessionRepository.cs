@@ -6,11 +6,7 @@ using NetDiskDomain;
 
 namespace NetDiskRepository
 {
-
-    public interface IUserRepository:IRepository<UserZero>
+    public class SessionRepository : Repository<Session>, ISessionRepository
     {
-        #region Extension Methods
-
-        #endregion
     }
 }
