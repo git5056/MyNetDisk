@@ -20,3 +20,7 @@ D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\Spring.Data.NHibernate30.
 D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\Spring.Aop.pdb
 D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\Spring.Aop.xml
 D:\vs2013\github\MyNetDisk\NetDiskRepository\obj\Debug\NetDiskRepository.csprojResolveAssemblyReference.cache
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskDomain.dll
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskHelper.dll
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskDomain.pdb
+D:\vs2013\github\MyNetDisk\NetDiskRepository\bin\Debug\NetDiskHelper.pdb

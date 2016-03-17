@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetDiskDomain
 {
-    class Vistor : UserBase, IFileDownload
+    public class Vistor : UserBase, IFileDownload
     {
         public void Downfile()
         {

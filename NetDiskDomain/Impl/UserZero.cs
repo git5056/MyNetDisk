@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NetDiskDomain.Impl
+namespace NetDiskDomain
 {
-    class UserZero : UserBase,IFileManager
+    public class UserZero : UserBase, IFileManager
     {
         public void Upfile()
         {

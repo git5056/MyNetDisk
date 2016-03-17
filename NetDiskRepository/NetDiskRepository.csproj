@@ -54,14 +54,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Impl\Repository.cs" />
+    <Compile Include="Interface\IDownloadRecondRepository.cs" />
+    <Compile Include="Interface\IFileSourceRepository.cs" />
+    <Compile Include="Interface\IFileSourceStatisticsRepository.cs" />
+    <Compile Include="Interface\INodeTreeRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IUserNodeMappingRepository.cs" />
+    <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NhibernateCfg.config" />
     <None Include="RepositoryCfg.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetDiskDomain\NetDiskDomain.csproj">
+      <Project>{fbff4710-4a5f-453b-837f-49d0d96e61ed}</Project>
+      <Name>NetDiskDomain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
