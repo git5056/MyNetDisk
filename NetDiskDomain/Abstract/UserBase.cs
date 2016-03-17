@@ -9,6 +9,7 @@ namespace NetDiskDomain
     public abstract class UserBase : IUser
     {
 
+        #region public property
         /// <summary>
         /// _id
         /// </summary>
@@ -41,6 +42,9 @@ namespace NetDiskDomain
             get;
             set;
         }
+
+        #endregion
+
 
     }
 

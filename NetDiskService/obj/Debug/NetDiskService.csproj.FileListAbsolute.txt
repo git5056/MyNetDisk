@@ -2,4 +2,3 @@ D:\vs2013\github\MyNetDisk\NetDiskService\bin\Debug\NetDiskService.dll
 D:\vs2013\github\MyNetDisk\NetDiskService\bin\Debug\NetDiskService.pdb
 D:\vs2013\github\MyNetDisk\NetDiskService\obj\Debug\NetDiskService.dll
 D:\vs2013\github\MyNetDisk\NetDiskService\obj\Debug\NetDiskService.pdb
-D:\vs2013\github\MyNetDisk\NetDiskService\obj\Debug\NetDiskService.csprojResolveAssemblyReference.cache

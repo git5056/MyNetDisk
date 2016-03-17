@@ -9,6 +9,7 @@ namespace NetDiskDomain
     //fileSource
     public class FileSource
     {
+        private const string DEFAULT_NULL_MD5_STRING = "";
 
         /// <summary>
         /// _id
@@ -74,6 +75,62 @@ namespace NetDiskDomain
             get;
             set;
         }
+
+        #region public methods
+
+        /// <summary>
+        /// if obj is string,deal with local path
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            //deal with localpath
+            if (obj is string)
+            {
+                if (isLocal)
+                {
+                    return NetDiskHelper.FileHelper.CompareWithMD5(md5, obj as string);
+                }
+                //NetDiskHelper.FileHelper.Compare()
+            }
+            return base.Equals(obj);
+        }
+
+        /// <summary>
+        /// Validate OneSelf
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool TryValidate()
+        {
+            if (isLocal)
+            {
+                return NetDiskHelper.FileHelper.CompareWithMD5(md5, path);
+            }
+            //con't deal with !isLocal
+            else
+            {
+                return true;
+            }
+            
+        }
+
+        /// <summary>
+        /// if TryValidate() return true,then exec nop
+        /// </summary>
+        public virtual void Validate()
+        {
+            if (TryValidate())
+            {
+                //nop
+            }
+            else
+            {
+                throw new Exception("DB出错,");
+            }
+        }
+
+        #endregion
 
     }
 }

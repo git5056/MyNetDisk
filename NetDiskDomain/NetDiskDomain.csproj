@@ -56,7 +56,12 @@
     <Compile Include="User.cs" />
     <Compile Include="UserNodeMapping.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NetDiskHelper\NetDiskHelper.csproj">
+      <Project>{92ef7b98-d536-470c-b241-dd6c9bdb4a16}</Project>
+      <Name>NetDiskHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NHMapping\downloadRecond.hbm.xml" />
     <EmbeddedResource Include="NHMapping\fileSource.hbm.xml" />
