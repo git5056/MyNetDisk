@@ -39,16 +39,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Impl\Service.cs" />
+    <Compile Include="Interface\IFileSourceService.cs" />
+    <Compile Include="Interface\IFileSourceStatisticsService.cs" />
+    <Compile Include="Interface\INodeTreeService.cs" />
+    <Compile Include="Interface\IRepositoryAware.cs" />
+    <Compile Include="Interface\IService.cs" />
+    <Compile Include="Interface\IUploadRecondService.cs" />
+    <Compile Include="Interface\IUserNodeMappingService.cs" />
+    <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ServiceBeanCfg.config" />
-    <None Include="TransactionCfg.config" />
+    <Content Include="ServiceBeanCfg.xml" />
+    <Content Include="TransactionCfg.xml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Impl\" />
-    <Folder Include="Interface\" />
+    <ProjectReference Include="..\NetDiskDomain\NetDiskDomain.csproj">
+      <Project>{fbff4710-4a5f-453b-837f-49d0d96e61ed}</Project>
+      <Name>NetDiskDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetDiskRepository\NetDiskRepository.csproj">
+      <Project>{de4bd7c3-6aa2-4da2-b676-3c77842a1774}</Project>
+      <Name>NetDiskRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

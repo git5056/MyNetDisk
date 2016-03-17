@@ -12,7 +12,7 @@ namespace ConsoleApplication1
             var context = Spring.Context.Support.ContextRegistry.GetContext();
             var iof = context;
             var te = iof.GetObject("repository.user") as NetDiskRepository.IUserRepository;
-            NetDiskDomain.UserBase ub = new NetDiskDomain.UserBase() { enabled = true, userId = "user2", userPwd = "pwd2" };
+            NetDiskDomain.UserBase ub = new NetDiskDomain.UserZero() { enabled = true, userId = "user3", userPwd = "pwd3" };
             NetDiskDomain.FileSource fs = new NetDiskDomain.FileSource() { content_type="text",deleted=false,enabled=true,isLocal=true,md5="aa",path="aa",postfix=".aa" };
 
             te.Save(ub);
