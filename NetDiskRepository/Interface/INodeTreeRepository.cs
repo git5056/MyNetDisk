@@ -10,6 +10,10 @@ namespace NetDiskRepository
     {
         #region Extension Methods
 
+        IList<NodeTree> FilterByPostfix(UserZero uz, string postfix);
+
+        IList<NodeTree> FilterByContentType(UserZero uz, string contentType);
+
         #endregion
     }
 }

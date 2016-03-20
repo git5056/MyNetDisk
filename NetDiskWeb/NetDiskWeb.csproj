@@ -39,7 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Lib\Spring-Net\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Lib\Nhibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spring.Core">
+      <HintPath>..\Lib\Spring-Net\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -112,6 +121,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -121,7 +132,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Image\65.jpg" />
     <Content Include="Global.asax" />
+    <Content Include="Lib\js\jquery.nicescroll.js" />
+    <Content Include="Lib\js\jstree\jstree.js" />
+    <Content Include="Lib\js\jstree\jstree.min.js" />
+    <Content Include="Lib\js\jstree\themes\default-dark\32px.png" />
+    <Content Include="Lib\js\jstree\themes\default-dark\40px.png" />
+    <Content Include="Lib\js\jstree\themes\default-dark\style.css" />
+    <Content Include="Lib\js\jstree\themes\default-dark\style.min.css" />
+    <Content Include="Lib\js\jstree\themes\default-dark\throbber.gif" />
+    <Content Include="Lib\js\jstree\themes\default\32px.png" />
+    <Content Include="Lib\js\jstree\themes\default\40px.png" />
+    <Content Include="Lib\js\jstree\themes\default\style.css" />
+    <Content Include="Lib\js\jstree\themes\default\style.min.css" />
+    <Content Include="Lib\js\jstree\themes\default\throbber.gif" />
+    <Content Include="Lib\js\jquery-2.1.4.js" />
+    <Content Include="Lib\js\jquery-ui.min.js" />
+    <Content Include="Lib\js\jquery.validate.js" />
+    <Content Include="Lib\js\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -133,11 +162,33 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Content\Files\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="root.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetDiskDomain\NetDiskDomain.csproj">
+      <Project>{fbff4710-4a5f-453b-837f-49d0d96e61ed}</Project>
+      <Name>NetDiskDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetDiskService\NetDiskService.csproj">
+      <Project>{d132c308-7dd1-41e2-be3d-ee26ff802636}</Project>
+      <Name>NetDiskService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\UploadFile.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

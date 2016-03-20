@@ -18,10 +18,18 @@ namespace NetDiskDomain
             get;
             set;
         }
+        ///// <summary>
+        ///// nodeId
+        ///// </summary>
+        //public virtual int nodeId
+        //{
+        //    get;
+        //    set;
+        //}
         /// <summary>
-        /// fileSourceId
+        /// The Special Node
         /// </summary>
-        public virtual int fileSourceId
+        public virtual NodeTree Node
         {
             get;
             set;

@@ -59,14 +59,19 @@ namespace NetDiskDomain
             set;
         }
 
-        public virtual IUserRunTime CurrentUser
+        /// <summary>
+        /// A wrapper dapter to IUserRunTime
+        /// </summary>
+        public virtual IUserRunTime Wrapper
         {
             get
             {
+                //游客
                 if (_User._id ==1)
                 {
                     return new Vistor(this);
                 }
+                //普通用户
                 else
                 {
                     _User._Session = this;
@@ -76,4 +81,5 @@ namespace NetDiskDomain
         }
 
     }
+
 }

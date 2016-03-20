@@ -7,6 +7,9 @@ namespace NetDiskDomain
 {
     public interface IFileDownload
     {
-        void Downfile();
+        DownloadRecond DownFile(NodeTree node, Func<string, bool> doDown);
+
+        //控制权限
+        bool TryDown(object context);
     }
 }

@@ -1,0 +1,9 @@
+1.由动态初始化参数文件创建静态初始化参数文件
+SQL＞create pfile='d:\initorcl.ora' from spfile;
+
+2.由静态初始化参数文件创建动态初始化参数文件
+SQL＞create spfile  pfile='d:\initorcl.ora';
+3.使用内存中的当前始化参数文件来创建一个动态初始化参数文件
+SQL＞create spfile from memory;
+
+

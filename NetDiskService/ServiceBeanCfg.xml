@@ -29,15 +29,7 @@
     <property name="Target">
       <object type="NetDiskService.NodeTreeService,NetDiskService">
         <property name="Repository" ref="repository.nodeTree"/>
-      </object>
-    </property>
-  </object>
-
-
-  <object id="SessionService" parent="BaseTransactionManager">
-    <property name="Target">
-      <object type="NetDiskService.SessionService,NetDiskService">
-        <property name="Repository" ref="repository.session"/>
+        <property name="SessionService" ref="SessionService"/>
       </object>
     </property>
   </object>
@@ -58,12 +50,24 @@
     </property>
   </object>
 
-  <object id="UserService" parent="BaseTransactionManager">
+
+
+  <object id="SessionService" parent="BaseTransactionManager">
     <property name="Target">
-      <object type="NetDiskService.UserService,NetDiskService">
-        <property name="Repository" ref="repository.user"/>
+      <object type="NetDiskService.SessionService,NetDiskService">
+        <property name="Repository" ref="repository.session"/>
       </object>
     </property>
   </object>
 
+  <object id="UserService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.UserService,NetDiskService">
+        <property name="Repository" ref="repository.user"/>
+        <property name="SessionService" ref="SessionService"/>
+        <property name="NodeTreeService" ref="NodeTreeService"/>
+      </object>
+    </property>
+  </object>
+  
 </objects>

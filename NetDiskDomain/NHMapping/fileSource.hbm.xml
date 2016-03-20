@@ -10,7 +10,7 @@
 		<property name="postfix" column="postfix" type="string"  />
 		<property name="path" column="path" type="string"  />
 		<property name="deleted" column="deleted" type="bool"  />
-		<property name="enabled" column="enabled" type="bool"  />
+		<property name="enabled" column="[enabled]" type="bool"  />
 				
 	</class>
 </hibernate-mapping>

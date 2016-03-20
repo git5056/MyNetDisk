@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0"  encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
-	<class name="NetDiskDomain.NodeTree, NetDiskDomain" table="nodeTree">
+	<class name="NetDiskDomain.NodeTree, NetDiskDomain" table="nodeTree" lazy="false">
 		<id name="_id" column="_id" type="int" unsaved-value="0">
       			<generator class="native" />       			
       	</id>      		
 		<property name="name" column="name" type="string"  />
 		<property name="pid" column="pid" type="int"  />
-		<property name="fileSouceId" column="fileSouceId" type="int"  />
-				
+    <property name="enabled" column="[enabled]" type="bool"  />
+    
+    
+    <!--<property name="fileSouceId" column="fileSouceId" type="int"  />-->
+    <many-to-one name="FileSource" class="NetDiskDomain.FileSource" cascade="save-update" column="fileSouceId" unique="true"></many-to-one>
+    
+    
+    <!--lazy="false" inverse="false" cascade="save-update"-->
+    <set name="ChildNodes" lazy="false" inverse="false" cascade="save-update" >
+      <key column="pid" ></key>
+      <one-to-many class="NetDiskDomain.NodeTree"/>
+    </set>
 	</class>
 </hibernate-mapping>

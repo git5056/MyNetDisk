@@ -8,7 +8,8 @@
 		<property name="cTime" column="cTime" type="DateTime"  />
 		<property name="enabled" column="[enabled]" type="bool"  />
     <!--<property name="userId" column="userId" type="int"  />-->
-    <many-to-one name="_User" class="NetDiskDomain.UserZero" not-null="false"
+    <!--lazy="false"-->
+    <many-to-one name="_User" class="NetDiskDomain.UserZero" not-null="false" 
                 column="userId" >
     </many-to-one>
 	</class>

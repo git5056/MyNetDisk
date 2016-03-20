@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Lib\Nhibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,10 +52,9 @@
     <Compile Include="Interface\IFileUpload.cs" />
     <Compile Include="Interface\IFileShare.cs" />
     <Compile Include="Interface\ISessionAware.cs" />
-    <Compile Include="Interface\IUser.cs" />
     <Compile Include="Abstract\AbstractUserRunTime.cs" />
     <Compile Include="Interface\IUserRunTime.cs" />
-    <Compile Include="NodeTree.cs" />
+    <Compile Include="Impl\NodeTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\Session.cs" />
     <Compile Include="UploadRecond.cs" />
@@ -66,13 +68,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="NHMapping\downloadRecond.hbm.xml" />
+    <EmbeddedResource Include="NHMapping\downloadRecond.hbm.xml" />
     <EmbeddedResource Include="NHMapping\fileSource.hbm.xml" />
     <Content Include="NHMapping\fileSourceStatistics.hbm.xml" />
-    <Content Include="NHMapping\nodeTree.hbm.xml" />
+    <EmbeddedResource Include="NHMapping\nodeTree.hbm.xml" />
     <EmbeddedResource Include="NHMapping\session.hbm.xml" />
-    <Content Include="NHMapping\uploadRecond.hbm.xml" />
-    <Content Include="NHMapping\userNodeMapping.hbm.xml" />
+    <EmbeddedResource Include="NHMapping\uploadRecond.hbm.xml" />
+    <EmbeddedResource Include="NHMapping\userNodeMapping.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NHMapping\user.hbm.xml">

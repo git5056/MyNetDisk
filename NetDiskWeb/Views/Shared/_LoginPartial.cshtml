@@ -1,0 +1,60 @@
+﻿@model NetDiskDomain.IUserRunTime
+
+
+<link href="~/Lib/js/style.css" rel="stylesheet" />
+
+@if (Model != null)
+{
+    if (Model is NetDiskDomain.Vistor)
+    {
+        <ul>
+            <li style="list-style:none;">
+                <em class="icon_user"></em>
+                @*@Html.ActionLink("登录", "", "#loginmodal", routeValues: null, htmlAttributes: new { id = "loginLink" })@Html.ActionLink("注册", "", "", routeValues: null, htmlAttributes: new { id = "registerLink" })*@          
+                账号:<input id="userId" type="text">密码:<input id="userPwd" type="password">&nbsp;&nbsp;<a href="javascript:;" style="text-decoration:none" id="loginbtn">登录</a> |<a style="text-decoration:none;" href="#">注册</a>
+                @*<script src="~/Lib/js/jquery-2.1.4.js"></script>*@
+                <script>
+                    $(function () {
+                        $('#loginbtn').click(function () {
+                            $.ajax("/ajax/login?userId=" + $("#userId").val() + "&userPwd=" + $("#userPwd").val(), {
+                                type: 'post',
+                                success: function (data) {
+                                    if (data.code == 0) {
+                                        location.reload();
+                                    }
+                                    else {
+                                        alert('登录失败');
+                                    }
+                                }
+                            });
+                        });
+
+                        $('#logoff').click(function () {
+
+                        });
+                    })
+                  
+                </script>
+            </li>
+        </ul>
+    }
+    else if (Model is NetDiskDomain.UserZero)
+    {
+        <ul class="web_login">
+            <li class="user_name">
+                你好,
+                @Html.ActionLink((Model as NetDiskDomain.UserZero).userId, "", "", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                <span class="line">&nbsp;&nbsp;| </span>
+                <a id="logoff_link" href="/ajax/logoff">退出</a>
+            </li>
+        </ul>
+    }
+    else
+    {
+        //nop
+    }
+}
+else
+{
+    <ul><li>error</li></ul>
+}

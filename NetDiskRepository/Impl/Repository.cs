@@ -42,16 +42,16 @@ namespace NetDiskRepository
         /// <returns></returns>
         public IList<T> FindByHQL(string hql, params object[] args)
         {
-            using (var session = this.Session)
-            {
-                
+            //using ()
+            //{
+            var session = this.Session;
                 var query = session.CreateQuery(hql);
                 for (int i = 0; args != null && i < args.Length; i++)
                 {
-                    query.SetParameter(i, args[0]);
+                    query.SetParameter(i, args[i]);
                 }
                 return query.List<T>();
-            }
+            //}
         }
 
     }

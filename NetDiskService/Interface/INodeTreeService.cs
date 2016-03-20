@@ -10,6 +10,9 @@ namespace NetDiskService
     {
         #region Extension Methods
 
+        IList<NodeTree> FilterByPostfix(string sessionId, string postfix);
+        IList<NodeTree> FilterByContentType(string sessionId, string contentType);
+
         #endregion
     }
 }

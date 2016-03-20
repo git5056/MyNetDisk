@@ -1,0 +1,465 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Lib/js/jstree/themes/default/style.min.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            background: url('../../Content/Image/65.jpg') no-repeat fixed center center;
+    
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .main-page {
+            margin: 100px auto 0 auto;
+            width: 1200px;
+            height: 380px;
+        }
+
+            .main-page .left, .main-page .right {
+                float: left;
+            }
+
+            .main-page .nav-back {
+                width: 60px;
+                height: 390px;
+                background: #000;
+                opacity: .3;
+                filter: alpha(opacity=30);
+            }
+
+            .main-page .nav {
+                position: relative;
+                margin-top: -390px;
+                width: 60px;
+                text-align: center;
+                font-size: 14px;
+                font-family: "微软雅黑";
+                color: #fff;
+            }
+
+                .main-page .nav div {
+                    height: 32px;
+                    line-height: 28px;
+                }
+
+                    .main-page .nav div.on {
+                        background: #0094ea;
+                    }
+
+            .main-page .right {
+                width: 1020px;
+                height: 300px;
+                margin-left: 20px;
+            }
+
+            .main-page .content-back {
+                width: 1020px;
+                height: 390px;
+                background: #fff;
+                opacity: .3;
+            }
+
+            .main-page .content {
+                position: relative;
+                width: 1000px;
+                height: 380px;
+                margin-top: -390px;
+                padding: 10px;
+                overflow: hidden;
+            }
+
+                .main-page .content div {
+                    width: 1000px;
+                    height: 380px;
+                    margin-bottom: 10px;
+                    background: #fff;
+                }
+    </style>
+    <script src="~/Lib/js/jquery-2.1.4.js"></script>
+</head>
+<body>
+    <div style="position:absolute;right:10px;top:0px;text-decoration:none; ">
+        @Html.Partial("_LoginPartial",@*null*@ NetDiskWeb.Controllers.HomeController.CurrentUser())
+    </div>
+
+    <div class="main-page">
+        <div class="left">
+            <div class="nav-back">
+            </div>
+            <div class="nav">
+                <div class="on">
+                    全部文件
+                </div>
+                <div>
+                    图片
+                </div>
+                <div>
+                    文档
+                </div>
+                <div>
+                    视频
+                </div>
+                <div>
+                    种子
+                </div>
+                <div>
+                    音乐
+                </div>
+                <div>
+                    其他
+                </div>
+                <div>
+                    下载记录
+                </div>
+                <div>
+                    下载排行
+                </div>
+                <div>
+                    回收站
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="content-back">
+            </div>
+            <div class="content">
+                <div>
+                    <div class="tools" style="background-color:blue;height:30px; ">
+
+                        <input type="button" value="下载文件" style="" onclick="down_file()" />
+                        <input type="button" value="上传文件" style="" onclick="up_file()" />
+                    </div>
+                    <div class="all-file-main" style="height:340px;">
+                        <div id="lazy" class="demo" style="height:330px;">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                   <div class="pic-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="text-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="avi-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="zz-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="mp3-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="other-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="downrecond-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="downrank-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+                <div>
+                    <div class="recycle-bin-main" style="height:340px;overflow:hidden;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+
+    @*<script src="~/Lib/js/jstree/jstree.min.js"></script>*@
+    <script src="~/Lib/js/jstree/jstree.js"></script>
+    <script src="~/Lib/js/jquery-ui.min.js"></script>
+    <script src="~/Lib/js/jquery.nicescroll.js"></script>
+    <script type="text/javascript">
+        //触发此事件
+        var onfire = function (index) {
+            if (index == 0) {
+                //nop
+            }
+                //异步加载图片Part
+            else if (index == 1) {
+                $(".pic-main").html(
+                    loadcon("/ajax/FilterFile?content=image/png")
+                    );
+            }
+                //异步加载文档Part
+            else if (index == 2) {
+                $(".text-main").html(
+                loadcon("/ajax/FilterFile?content=text/plain")
+                );
+            }
+                //异步加载视频Part
+            else if (index == 3) {
+                $(".avi-main").html(
+                loadcon("/ajax/FilterFile?content=avi")
+                );
+            }
+                //异步加载种子Part
+            else if (index == 4) {
+                $(".zz-main").html(
+                loadcon("/ajax/FilterFile?content=torrt")
+                );
+            }
+                //异步加载音乐Part
+            else if (index == 5) {
+                $(".mp3-main").html(
+                loadcon("/ajax/FilterFile?content=mp3")
+                );
+            }
+                //异步加载其他Part
+            else if (index == 6) {
+                $(".other-main").html(
+                loadcon("/ajax/FilterFile?content=other")
+            );
+            }
+                //异步加载下载记录Part
+            else if (index == 7) {
+                $.ajax("/Ajax/DwonRecond", {
+                    type: 'post',
+                    success: function (data) {
+                        var htmls = "<ul style='margin:0px;list-style:none;padding:0px;'>"
+                        if (data.length == 0) {
+                            $(".downrecond-main").html("暂无下载记录");
+                        }
+                        else {
+                            htmls += "<li style='color:blue;border-bottom:1px solid;'>下载次数:<strong>" + data.length + "</strong></li>";
+                            for (var i = 0; i < data.length; i++) {
+
+                                htmls += "<li style='list-style:none;'><span>" + data[i].name + "</span><span style='float:right'>下载时间:" + data[i].time + "</span></li>";
+                            }
+                            htmls += "</ul>";
+                            $(".downrecond-main").html(htmls);
+                        }
+                    }
+                });
+            }
+                //异步加载下载排行Part
+            else if (index == 8) {
+                $.ajax("/Ajax/DownRank", {
+                    type: 'post',
+                    success: function (data) {
+                        var htmls = "<ul style='margin:0px;list-style:none;padding:0px;'>"
+                        if (data.length == 0) {
+                            $(".downrank-main").html("暂无下载记录");
+                        }
+                        else {
+                            htmls += "<li style='color:blue;border-bottom:1px solid;'>文件:<strong>" + data.length + "</strong></li>";
+                            for (var i = 0; i < data.length; i++) {
+
+                                htmls += "<li style='list-style:none;'><span>" + data[i].name + "</span><span style='float:right'>下载次数:" + data[i].count + "</span></li>";
+                            }
+                            htmls += "</ul>";
+                            $(".downrank-main").html(htmls);
+                        }
+                    }
+                });
+            }
+        };
+
+        //分类装载part
+        function loadcon(url) {
+            var $p = $('<div></div>');
+            var jsb = [];
+            var htmls = "<ul style='margin:0px;list-style:none;padding:0px;'>";
+
+            $.ajax(url, {
+                type: 'post',
+                async:false,
+                success: function (data) {
+                    jsb = data;
+                }
+            });
+            htmls += "<li style='color:blue;border-bottom:1px solid;'>总共:<strong>" + jsb.length + "</strong></li>";
+            for (var i = 0; i < jsb.length; i++) {
+                htmls += "<li style='list-style:none;'><span style='margin:0px  50px 0px 0px;'>" + jsb[i].name + "</span><a href='/ajax/DownFile?nodeId=" + jsb[i].id + "' target='_blank' style='text-decoration:none;float:right' >下载</a></li>";
+            }
+            
+            if (jsb.length == 0) {
+                htmls += "<li>没有相关内容</li>";
+            }
+            htmls += "</ul>";
+            $p.html(htmls);
+            return $p;
+
+        }
+
+        $(".main-page .nav div").mouseenter(function () {
+            var $this = $(this);
+            var index = $this.index();
+        }).mouseleave(function () {
+            var $this = $(this);
+            var index = $this.index();
+        }).click(function () {
+            var $this = $(this);
+            var index = $this.index();
+            var l = -(index * 390);
+            $(".main-page .nav div").removeClass("on");
+            $(".main-page .nav div").eq(index).addClass("on");
+            $(".main-page .content div:eq(0)").stop().animate({ "margin-top": l }, 500);
+            onfire(index);
+        });
+
+    </script>
+    <script>
+        $playlist_scroll = $(".all-file-main").niceScroll({ touchbehavior: false, cursorcolor: "#CCC", cursoropacitymax: 0.7, cursorwidth: 6, background: "transparent", autohidemode: false });
+    </script>
+
+    <script>
+  
+        function create_node_remote(pid, name, callback) {
+            $.ajax("/ajax/CreateDir?" + "pId=" + pid + "&name=" + name, {
+                type: 'post',
+                //async:false,
+                success: function (data) {
+                    result = data.code == 0;
+                    if (result)
+                        callback(true, data.nodeId);
+                    else {
+                        callback(false, data.msg);
+                    }
+                },
+            });
+        }
+
+        function delete_node_remote(nodeId, callback) {
+            $.ajax("/ajax/DeleteNode?" + "nodeId=" + nodeId, {
+                type: 'post',
+                //async:false,
+                success: function (data) {
+                    result = data.code == 0;
+                    callback(result);
+                }
+            })
+        }
+
+        function rename_node_remote(nodeId, newname, callback) {
+            $.ajax("/ajax/RenameNode?" + "nodeId=" + nodeId + "&newname="+newname, {
+                type: 'post',
+                //async:false,
+                success: function (data) {
+                    result = data.code == 0;
+                    callback(result);
+                }
+            })
+        }
+
+        function move_node_remote(parentId, nodeId, callback) {
+            $.ajax("/ajax/MoveNode?" + "parentId=" + parentId + "&nodeId=" + nodeId, {
+                type: 'post',
+                //async:false,
+                success: function (data) {
+                    var result = data.code == 0;
+                    if (result)
+                        callback(true,data.nodeId);
+                    else
+                        callback(false)
+                }
+            })
+        }
+
+
+        //暂不考虑文件夹下载
+        function down_file(nodeId) {
+            var ref = $('#lazy').jstree(true),
+            sel = ref.get_selected();
+            if (!sel.length) { return false; }
+            if (ref.get_icon(sel[0]) == "jstree-folder") { return false; }
+            sel = sel[0];
+            window.open("/ajax/DownFile?" + "nodeId=" + sel, "_blank");
+        }
+
+        function up_file() {
+            var ref = $('#lazy').jstree(true),
+            sel = ref.get_selected();
+            if (!sel.length) { return false; }
+            if (ref.get_icon(sel[0]) == "jstree-file") { return false; }
+            sel = sel[0];
+            window.open("/Home/UploadFile?" + "nodeId=" + sel, "_blank");
+        }
+
+        var is_create_dir = false;
+        $('#lazy')
+            .bind("select_node.jstree", function (event, data) {
+                //ref.select_node(data.node);
+            })
+            .bind("move_node.jstree", function (e, data) {
+                move_node_remote(data.parent,data.node.id)
+            })
+            .bind("create_node.jstree", function (event, data) {
+                is_create_dir = true;
+                return false;
+
+            })
+            .bind("rename_node.jstree", function (event, data) {
+
+                //create new dir
+                if (is_create_dir) {
+                    create_node_remote(data.node.parent, data.text, function (bresult, nodeId) {
+                        //success,update node id
+                        if (bresult) {
+                            var ref = $('#lazy').jstree(true);
+                            ref.set_id(data.node, nodeId + "");
+                        }
+                        //failure,delete node
+                        else {
+                            $('#lazy').jstree(true).delete_node(data.node);
+                            alert('失败');                  
+                        }
+                    });
+                    is_create_dir = false;
+                }
+                    //rename
+                else {
+                    rename_node_remote(data.node.id, data.text, function (bresult) {
+                        if (!bresult) {
+                            var ref = $('#lazy').jstree(true);
+                            ref.set_text(data.node,  data.old);
+                            alert('失败');
+                        }
+                    });
+                }
+            })
+            .bind("delete_node.jstree", function (e, data) {
+                delete_node_remote(data.node.id, function (bresult) {
+                    if (!bresult) {
+                        alert('失败');
+                    }
+                });
+            })
+            .jstree({
+                "core": {
+                    "animation": 0,
+                    "check_callback": true,
+                    'force_text': true,
+                    "themes": { "stripes": true },
+                    'data': {
+                        'url': function (node) {
+                            return node.id === '#' ? "/ajax/lazy?nodeId=-1" : "/ajax/lazy?nodeId=" + node.id;
+                        },
+                        'data': function (node, cb) {
+                            return { 'id': node.id };
+                        }
+                    }
+                },
+                "types": {
+                    "#": { "max_children": 1, "max_depth": 5, "valid_children": ["root"] },
+                    "root": { "valid_children": ["default"] },//"icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png",
+                    "default": { "valid_children": ["default", "file"] },
+                    "file": { "icon": "glyphicon glyphicon-file", "valid_children": [] }
+                },
+                "plugins": ["dnd", "state", "contextmenu", "search", "types"]// "wholerow"
+            });
+        $('#lazy').jstree(true).hide_dots();
+    </script>
+</body>
+</html>

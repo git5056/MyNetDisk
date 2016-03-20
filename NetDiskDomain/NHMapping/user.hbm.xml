@@ -7,6 +7,21 @@
     <property name="userId" column="userId" type="string"  />
     <property name="userPwd" column="[userPwd]" type="string"  />
     <property name="enabled" column="[enabled]" type="bool"  />
+    <property name="rootNodeId" column="rootNodeId" type="int"  />
+
+    <!--lazy="false" inverse="false" cascade="save-update"-->
+    <set name="DownloadReconds" lazy="false" inverse="true" cascade="save-update" >
+      <key column="userId" ></key>
+      <one-to-many class="NetDiskDomain.DownloadRecond"/>
+    </set>
+
+    <set name="UploadReconds" lazy="false" inverse="true" cascade="save-update" >
+      <key column="userId" ></key>
+      <one-to-many class="NetDiskDomain.UploadRecond"/>
+    </set>
+
+    <many-to-one name="RootNode" class="NetDiskDomain.NodeTree" lazy="false" column="rootNodeId" unique="true"></many-to-one>
+    
   </class>
   
 </hibernate-mapping>

@@ -9,15 +9,14 @@ namespace NetDiskRepository
     public class SessionRepository : Repository<Session>, ISessionRepository
     {
 
-
-        [Spring.Transaction.Interceptor.Transaction]
         public IUserRunTime GetCurrentUser(string sessionid)
         {
-            sessionid = "c68e8b0b66ac415db44771132ad56a04";
             var listSession = FindByHQL("from " + typeof(Session) +" where sessionId=?", sessionid);
             if (listSession.Count == 1)
             {
-                return listSession[0].CurrentUser;
+                //登记
+                //listSession[0].Wrapper.Register();
+                return listSession[0].Wrapper;
             }
 
             if (listSession.Count == 0)
@@ -30,14 +29,15 @@ namespace NetDiskRepository
                 _session._User._id = 1;
                 _session._User.userId = "visitor";
                 _session._User.userPwd = "visitor";
-                Save(_session);              
+                Save(_session);
                 return GetCurrentUser(_sessionId);
             }
 
             else
             {
-                throw new Exception("出错");
+                throw new Exception("internal error");
             }
         }
+
     }
 }

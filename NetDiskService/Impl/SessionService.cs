@@ -9,10 +9,15 @@ namespace NetDiskService
 {
     public class SessionService : Service<Session>, ISessionService
     {
-
-        public IUserRunTime GetCurrentUser()
+        public IUserRunTime GetCurrentUser(string sessionId)
         {
-            return (this._repository as ISessionRepository).GetCurrentUser("");
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                sessionId = Guid.NewGuid().ToString("N");
+            }
+            return (this._repository as ISessionRepository).GetCurrentUser(sessionId);
         }
+
     }
+
 }

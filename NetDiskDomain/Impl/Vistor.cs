@@ -39,9 +39,42 @@ namespace NetDiskDomain
             return -1;
         }
 
-        public void Downfile()
+
+        #region public methods
+        public virtual Session Log(string userId, string userPwd, Func<string, string, UserZero> TryLog)
+        {
+            var result=TryLog(userId,userPwd);
+            if (result == null)
+            {
+                throw new Exception("log error");
+            }
+            //this._Session._User = result;
+            //return this._Session;
+            //create a new session ,not inherit
+            Session session = new Session();
+            session._User = result;
+            session.cTime = DateTime.Now;
+            session.enabled = true;
+            session.sessionId = Guid.NewGuid().ToString("N");
+            return session;
+        }
+
+        #endregion
+
+        public DownloadRecond DownFile(NodeTree node, Func<string, bool> doDown)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 未实现游客下载
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+
+        public bool TryDown(object context)
+        {
+            return false;
         }
     }
 

@@ -10,7 +10,7 @@ namespace NetDiskService
     {
         #region Extension Methods
 
-        IUserRunTime GetCurrentUser();
+        IUserRunTime GetCurrentUser(string sessionId);
 
         #endregion
     }
