@@ -9,8 +9,25 @@ namespace ConsoleApplication1
 {
     class Program
     {
+        static bool fa2(int n)
+        {
+            if (n == 1) 
+                return true;
+            else 
+                return fa2(n - 1);
+            //1
+        }
+        static bool fa(int n)
+        {
+            if (n != 1) 
+                return fa(n - 1);
+            /*2*/ else 
+                return true;
+        }
         static void Main(string[] args)
         {
+            fa(5);
+            fa2(5);
             var context = Spring.Context.Support.ContextRegistry.GetContext();
             var iof = context;
             var te2 = iof.GetObject("NodeTreeService") as INodeTreeService;

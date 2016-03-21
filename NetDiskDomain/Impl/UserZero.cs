@@ -245,7 +245,7 @@ namespace NetDiskDomain
                     {
                         var contextInfo = context as FileUploadContextInfo;
                         //writing to nodeTree
-                        RootNode.FindIt(contextInfo.ParentNodeId).AppendChild(contextInfo.FileName, contextInfo.Fs);
+                        RootNode.GetChildInAll(contextInfo.ParentNodeId).AppendChild(contextInfo.FileName, contextInfo.Fs);
 
                         //writing to uploadrecond
                         UploadReconds.Add(new UploadRecond() { uploadTime = DateTime.Now,userId=_id,fileSourceId=contextInfo.Fs._id,flashUp=contextInfo.IsFlash });

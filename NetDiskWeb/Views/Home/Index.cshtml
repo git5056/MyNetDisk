@@ -444,7 +444,7 @@
                     "themes": { "stripes": true },
                     'data': {
                         'url': function (node) {
-                            return node.id === '#' ? "/ajax/lazy?nodeId=-1" : "/ajax/lazy?nodeId=" + node.id;
+                            return node.id === '#' ? "/ajax/lazy?nodeId=0" : "/ajax/lazy?nodeId=" + node.id;
                         },
                         'data': function (node, cb) {
                             return { 'id': node.id };

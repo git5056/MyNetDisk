@@ -91,7 +91,7 @@ namespace NetDiskRepository
 
         public void AddNode(UserZero uz, string name, int pNodeId,int fsId)
         {
-            var node = uz.RootNode.FindIt(pNodeId);
+            var node = uz.RootNode.GetChildInAll(pNodeId);
             if (node != null)
             {
                 //persist

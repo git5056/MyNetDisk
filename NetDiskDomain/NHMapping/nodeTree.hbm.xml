@@ -5,7 +5,7 @@
       			<generator class="native" />       			
       	</id>      		
 		<property name="name" column="name" type="string"  />
-		<property name="pid" column="pid" type="int"  />
+
     <property name="enabled" column="[enabled]" type="bool"  />
     
     
@@ -18,5 +18,9 @@
       <key column="pid" ></key>
       <one-to-many class="NetDiskDomain.NodeTree"/>
     </set>
+    
+    <!--<property name="pid" column="pid" type="int"  />-->
+    <many-to-one name="ParentNode" class="NetDiskDomain.NodeTree" cascade="save-update" column="pid" unique="true"></many-to-one>
+    
 	</class>
 </hibernate-mapping>

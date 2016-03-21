@@ -30,7 +30,7 @@ namespace NetDiskWeb.Controllers
             {
                 var user = currentUser as UserZero;
                 //user.RootNode
-                var result = ToJson(user.RootNode.FindIt(nodeId.Value));
+                var result = ToJson(user.RootNode.GetChildInAll(nodeId.Value));
                 result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                 
                 return result;
@@ -98,7 +98,7 @@ namespace NetDiskWeb.Controllers
             var userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                userService.AddNode(GetSessionId(), name, pId.Value, NodeTree.DIR_NODE_ID);
+                userService.AddNode(GetSessionId(), name, pId.Value, NodeTree.FOLDER_NODE_ID);
                 //需要返回一个id来修改节点值
                 var nodeTreeService = iof.GetObject("NodeTreeService") as INodeTreeService;
                 var pNode =  nodeTreeService.FindById(pId.Value);
@@ -322,7 +322,7 @@ namespace NetDiskWeb.Controllers
         {
             ntj.text = node.name;
             ntj.state = new NodeTreeJsonState() { disabled = false, opened = true };
-            ntj.icon = node.IsFileNode() ? "jstree-file" : "jstree-folder";
+            ntj.icon = !node.IsFolderNode() ? "jstree-file" : "jstree-folder";
             ntj.children = new List<NodeTreeJson>();
             ntj.id = node._id;
             foreach (var i in node.ChildNodes.ToList())
@@ -334,7 +334,7 @@ namespace NetDiskWeb.Controllers
                     tmpNode.id = i._id;
                     tmpNode.text = i.name;
                     tmpNode.state = new NodeTreeJsonState() { disabled = false, opened = true };
-                    tmpNode.icon = i.IsFileNode() ? "jstree-file" : "jstree-folder";
+                    tmpNode.icon = !i.IsFolderNode() ? "jstree-file" : "jstree-folder";
                     ntj.children.Add(tmpNode);
                     CloneNodeTreeToNodeTreeJson(i, tmpNode);
 

@@ -1,4 +1,5 @@
 ﻿using Iesi.Collections.Generic;
+using NetDiskHelper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,21 +11,31 @@ using System.Collections.Generic;
 namespace NetDiskDomain
 {
     //nodeTree
-    public class NodeTree:IEnumerable,IEnumerator
+    public class NodeTree : NodeBase ,IEnumerable, IEnumerator
     {
-        public static readonly int DIR_NODE_ID = 0;
-        public static readonly int ROOT_NODE_ID = -1;
+        public static readonly int FOLDER_NODE_ID = 0;
+        public static readonly int ROOT_NODE_ID = 0;
 
         #region Property
 
+
+        private int __id;
         /// <summary>
         /// _id
         /// </summary>
         public virtual int _id
         {
-            get;
-            set;
+            get
+            {
+                return __id;
+            }
+            set
+            {
+                AssertHelper.Against(value, val => val < 1,this.GetType());
+                __id = value;
+            }
         }
+
         /// <summary>
         /// name
         /// </summary>
@@ -33,23 +44,6 @@ namespace NetDiskDomain
             get;
             set;
         }
-        /// <summary>
-        /// pid
-        /// </summary>
-        public virtual int pid
-        {
-            get;
-            set;
-        }
-
-        ///// <summary>
-        ///// fileSouceId
-        ///// </summary>
-        //public virtual int fileSouceId
-        //{
-        //    get;
-        //    set;
-        //}
 
         /// <summary>
         /// enabled
@@ -69,11 +63,114 @@ namespace NetDiskDomain
             set;
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// 是根节点?
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsRootNode()
+        {
+            return this.ParentNode == null;
+        }
+
+        /// <summary>
+        /// 是目录节点?
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsFolderNode()
+        {
+            return this.FileSource == null;
+        }
+
+        public virtual bool HasChild(int nodeId)
+        {
+            var bhas = false;
+            if (nodeId == ROOT_NODE_ID && IsRootNode())
+                return true;
+            if (nodeId < 1)
+                return bhas;
+            TravelForLoop(this, n =>
+            {
+                var tmp = n as NodeTree;
+                if (tmp._id == nodeId)
+                {
+                    bhas = false;
+                    return true;
+                }
+                else
+                    return false;
+
+            });
+            return bhas;
+        }
+
+        public virtual bool TeyGetChild()
+        {
+            return ChildNodes != null;
+        }
+        public virtual NodeTree GetChildInAll(int nodeId)
+        {
+            if (TeyGetChild())
+            {
+                if (nodeId == ROOT_NODE_ID)
+                {
+                    return IsRootNode() ? this : null;
+                }
+                NodeTree pNode = null;
+                TravelForLoop(this, n =>
+                {
+                    var tmp = n as NodeTree;
+                    if (tmp._id == nodeId)
+                    {
+                        pNode = tmp;
+                        return true;
+                    }
+                    else
+                        return false;
+
+                });
+                return pNode;
+            }
+            return null;
+        }
+
+        public virtual NodeTree GetChildrenInFirstGrade(int nodeId)
+        {
+            if (TeyGetChild())
+            {
+                foreach (var i in ChildNodes)
+                {
+                    if (i._id == nodeId)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public virtual bool Verify()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// ParentNode,mapping pid
+        /// </summary>
+        public virtual NodeTree ParentNode
+        {
+            get;
+            set;
+        }
+
 
         private Iesi.Collections.Generic.ISet<NodeTree> childNodes;
 
         /// <summary>
-        /// ChildNodes
+        /// ChildNodes,mapping pid,lazy load
         /// </summary>
         public virtual Iesi.Collections.Generic.ISet<NodeTree> ChildNodes
         {
@@ -93,28 +190,34 @@ namespace NetDiskDomain
 
         #endregion
 
-        #region Methods
-
-        public virtual NodeTree MatchFileSourceId(int fsId)
+        #region Override NodeBase
+        public override IEnumerable<NodeBase> ChildNodesWrapper
         {
-            var nodes = new List<NodeTree>();
-
-            TreeToList(this, nodes);
-            foreach (var i in nodes)
+            get
             {
-                if (i.FileSource != null && i.FileSource._id == fsId)
-                {
-                    return i;
-                }
+                return ChildNodes;
             }
-            return null;
+            set
+            {
+                ChildNodes = (Iesi.Collections.Generic.ISet<NodeTree>)(value);
+            }
         }
+
+        #endregion
+
+        #region Protected Methods
+
+        #endregion
+
+        #region Common Methods
+
 
         /// <summary>
         /// Delete logical
         /// </summary>
-        public virtual void RemoveOneSelf(){
-            if (pid == -1)
+        public virtual void RemoveLogical()
+        {
+            if (IsRootNode())
             {
                 throw new Exception("根节点不能删除");
             }
@@ -130,13 +233,13 @@ namespace NetDiskDomain
 
         public virtual void RemoveChild(int nodeId)
         {
-            var chnode = FindIt(nodeId);
+            var chnode = GetChildInAll(nodeId);
             if (chnode != null)
             {
                 //移除目录节点以及其下的子节点
                 foreach (NodeTree i in chnode)
                 {
-                    i. RemoveOneSelf();
+                    i.RemoveLogical();
                 }
             }
             //throw new Exception("未找到");
@@ -145,7 +248,7 @@ namespace NetDiskDomain
 
         public virtual NodeTree AppendChild(string name, FileSource fs)
         {
-            if (!IsDirNode())
+            if (!IsFolderNode())
             {
                 throw new Exception("只有文件夹节点可以添加子节点");
             }
@@ -163,36 +266,39 @@ namespace NetDiskDomain
             var node = new NodeTree();
             node.name = name;
             node.enabled = true;
-            node.pid = this._id;
+            node.ParentNode = this;
             node.FileSource = fs;
             ChildNodes.Add(node);
             return node;
         }
 
-        public virtual NodeTree RenameChild(int childId,string name)
+        public virtual NodeTree RenameChild(int childId, string name)
         {
             if (name == null || name.Trim().Length < 1)
             {
                 throw new Exception("非有效字符");
             }
-            var child = FindIt(childId);
+            var child = GetChildInAll(childId);
             if (child != null)
             {
                 if (child == this)
                 {
                     throw new Exception("不能重命名自己");
                 }
-                var pNode = FindIt(child.pid);
-                //check the same name
-                foreach (NodeTree i in pNode)
+                if (ParentNode != null)
                 {
-                    if (i.name == name && i.enabled)
+                    foreach (NodeTree i in ParentNode)
                     {
-                        throw new Exception("同一级下不能有重名文件");
+                        if (i.name == name && i.enabled)
+                        {
+                            throw new Exception("同一级下不能有重名文件");
+                        }
                     }
+                    child.name = name;
+                    return child;
                 }
-                child.name = name;
-                return child;
+                throw new Exception("root节点属于顶级，不能在其同级添加节点");
+
             }
             else
             {
@@ -210,42 +316,26 @@ namespace NetDiskDomain
         /// <returns></returns>
         public virtual NodeTree Move(int parentId, int nodeId)
         {
-            var pNode = FindIt(parentId);
-            var node = FindIt(nodeId);
-            if (pNode == null || node == null)
+            var pNode = GetChildInAll(parentId);
+            var cNode = GetChildInAll(nodeId);
+            if (pNode == null || cNode == null)
             {
                 throw new Exception("节点不存在");
             }
-            var tmp = node.FindIt(parentId);
-            if (tmp != null)
+            if (cNode.HasChild(parentId))
             {
                 throw new Exception("不能将父节点移到子节点");
             }
-            foreach (var i in pNode.childNodes)
+            foreach (var i in pNode.ChildNodes)
             {
-                if (i.name == node.name)
+                if (i.name == cNode.name)
                 {
                     throw new Exception("同一级内不能有同名node");
                 }
             }
             //update
-            node.pid = pNode._id;
-            return node;
-        }
-
-        public virtual bool IsFileNode()
-        {
-            return !IsDirNode();
-        }
-
-        public virtual bool IsDirNode()
-        {
-            return  this.FileSource==null || this.FileSource._id ==DIR_NODE_ID;
-        }
-
-        public virtual bool IsRootNode()
-        {
-            return this.pid == ROOT_NODE_ID;
+            cNode.ParentNode = this;
+            return cNode;
         }
 
         public virtual bool IsRemoved()
@@ -255,52 +345,7 @@ namespace NetDiskDomain
 
         #endregion
 
-        #region FindIt
-        /// <summary>
-        /// To Find Child Node In This Tree,Or Return NULL
-        /// </summary>
-        /// <param name="nodeId"></param>
-        /// <returns></returns>
-
-        public virtual NodeTree FindIt(int nodeId)
-        {
-            if (ROOT_NODE_ID == nodeId)
-                if (IsRootNode())
-                    return this;
-                else
-                    return null;
-            return FindItInternal(nodeId, this);
-        }
-        private NodeTree FindItInternal(int nodeId, NodeTree node)
-        {
-
-            var nodes = new List<NodeTree>();
-            TreeToList(node, nodes);
-            foreach (var i in nodes)
-            {
-                if (i._id == nodeId)
-                    return i;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// to make code simpler
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="nodes"></param>
-        private void TreeToList(NodeTree node, IList<NodeTree> nodes)
-        {
-            nodes.Add(node);
-            foreach (var i in node.ChildNodes)
-            {
-                TreeToList(i, nodes);
-            }
-        }
-
-        #endregion
-
-        #region Enumerat Provider
+        #region Enumerat Provide
 
         internal class EnumeratHelper
         {
