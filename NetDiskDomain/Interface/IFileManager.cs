@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetDiskDomain
 {
-    interface IFileManager:IFileUpload,IFileDownload,IFileShare
+    interface IFileManager:IFileUploader,IFileDownloader,IFileShare
     {
 
     }

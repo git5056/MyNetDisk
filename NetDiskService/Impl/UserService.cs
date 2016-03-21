@@ -58,7 +58,7 @@ namespace NetDiskService
             }
             //if(cu)
             
-            UserRepository.DownloadFile((IFileDownload)current, node, doDown);
+            UserRepository.DownloadFile((IFileDownloader)current, node, doDown);
         }
 
         public void UploadFile(string sessionId, DoUpHandle doUp)

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetDiskDomain
 {
-    public interface IFileDownload
+    public interface IFileDownloader
     {
         DownloadRecond DownFile(NodeTree node, Func<string, bool> doDown);
 

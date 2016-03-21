@@ -28,7 +28,7 @@ namespace NetDiskDomain
         public bool IsFlash = false;
     }
 
-    public interface IFileUpload
+    public interface IFileUploader
     {
         void UpFile(DoUpHandle doUp);
 

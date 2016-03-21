@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetDiskDomain
 {
-    public class Vistor : AbstractUserRunTime, IFileDownload
+    public class Vistor : AbstractUserRunTime, IFileDownloader
     {
         public Vistor(Session session)
         {

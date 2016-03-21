@@ -49,8 +49,7 @@ namespace NetDiskRepository
             }
         }
 
-
-        public void DownloadFile(IFileDownload downloader, NodeTree node, Func<string, bool> doDown)
+        public void DownloadFile(IFileDownloader downloader, NodeTree node, Func<string, bool> doDown)
         {
             if (node.FileSource == null)
             { 
@@ -62,7 +61,7 @@ namespace NetDiskRepository
 
         }
 
-        public void UploadFile(IFileUpload user, DoUpHandle doUp)
+        public void UploadFile(IFileUploader user, DoUpHandle doUp)
         {
             DoUpHandle d = (out object context) =>
             {
@@ -115,7 +114,6 @@ namespace NetDiskRepository
             //persist
             SaveOrUpdate(uz);
         }
-
 
         public void MoveNode(UserZero uz, int parentId, int nodeId)
         {

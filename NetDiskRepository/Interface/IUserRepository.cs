@@ -13,9 +13,9 @@ namespace NetDiskRepository
 
         Session Log(Vistor visitor,string userId,string userPwd);
 
-        void DownloadFile(IFileDownload user, NodeTree node ,Func<string,bool> doDown);
+        void DownloadFile(IFileDownloader user, NodeTree node ,Func<string,bool> doDown);
 
-        void UploadFile(IFileUpload user, DoUpHandle doUp);
+        void UploadFile(IFileUploader user, DoUpHandle doUp);
 
         void AddNode(UserZero uz, string name, int pNodeId,int fsId);
 
