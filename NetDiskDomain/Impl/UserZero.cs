@@ -54,17 +54,7 @@ namespace NetDiskDomain
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// rootNodeId
-        /// </summary>
-        public virtual int rootNodeId
-        {
-            get;
-            set;
-        }
-        
+        }        
 
         private Iesi.Collections.Generic.ISet<DownloadRecond> downloadReconds;
 
@@ -130,9 +120,9 @@ namespace NetDiskDomain
         //}
 
         /// <summary>
-        /// RootNode
+        /// RootNode,Mapping rootNodeId
         /// </summary>
-        public virtual NodeTree RootNode
+        public virtual Node RootNode
         {
             get;
             set;
@@ -159,9 +149,9 @@ namespace NetDiskDomain
         /// <param name="fsId"></param>
         /// <param name="node"></param>
         /// <returns></returns>
-        private bool OwnInternal(int fsId, NodeTree node)
+        private bool OwnInternal(int fsId, Node node)
         {
-            foreach (NodeTree i in node)
+            foreach (Node i in node)
             {
                 if (i.FileSource != null && i.FileSource._id == fsId)
                 {
@@ -193,7 +183,7 @@ namespace NetDiskDomain
             return false;
         }
 
-        public virtual DownloadRecond DownFile(NodeTree node, Func<string, bool> doDown)
+        public virtual DownloadRecond DownFile(Node node, Func<string, bool> doDown)
         {
             //log.....................
             if (node.FileSource == null)

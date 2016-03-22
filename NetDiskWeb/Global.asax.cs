@@ -16,9 +16,18 @@ namespace NetDiskWeb
         {
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            try
+            {
+                WebApiConfig.Register(GlobalConfiguration.Configuration);
+            }
+            catch
+            {
+
+            }
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+
+        
     }
 }

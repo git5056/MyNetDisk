@@ -30,7 +30,7 @@ namespace NetDiskDomain
         }
 
         /// <summary>
-        /// 非递归遍历,循环加栈
+        /// 非递归遍历,循环入栈
         /// </summary>
         /// <param name="pNode"></param>
         protected virtual void TravelForLoop(NodeBase pNode, Func<NodeBase, bool> cutEarly)
@@ -54,7 +54,7 @@ namespace NetDiskDomain
         }
 
         /// <summary>
-        /// 层次遍历加队列
+        /// 层次遍历入队列
         /// </summary>
         /// <param name="pNode"></param>
         /// <param name="cutEarly"></param>

@@ -1,6 +1,9 @@
-﻿@{
+﻿@model NetDiskDomain.IUserRunTime
+
+@{
     ViewBag.Title = "Index";
 }
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -87,8 +90,10 @@
     <script src="~/Lib/js/jquery-2.1.4.js"></script>
 </head>
 <body>
+    <h3>暂未提供注册功能,测试账号user2密码pwd2<br />账号user3密码pwd3</h3>
     <div style="position:absolute;right:10px;top:0px;text-decoration:none; ">
-        @Html.Partial("_LoginPartial",@*null*@ NetDiskWeb.Controllers.HomeController.CurrentUser())
+        @*null*@
+        @Html.Partial("_LoginPartial", Model)
     </div>
 
     <div class="main-page">
@@ -393,7 +398,14 @@
                 //ref.select_node(data.node);
             })
             .bind("move_node.jstree", function (e, data) {
-                move_node_remote(data.parent,data.node.id)
+                move_node_remote(data.parent, data.node.id, function (bresult,nodId) {
+
+                    //失败，回退
+                    if (!bresult) {
+                        var ref = $('#lazy').jstree(true);
+                        ref.move_node(data.node.id, data.old_parent);
+                    }
+                });
             })
             .bind("create_node.jstree", function (event, data) {
                 is_create_dir = true;

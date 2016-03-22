@@ -5,7 +5,7 @@
 
 
 
-@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })){
+@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { id="upform", enctype = "multipart/form-data",onsubmit="return fillmd5()" })){
 
     
         @*//@Html.LabelFor(model => mel.Pictures)*@
@@ -15,20 +15,23 @@
         <input type="text" value="@ViewBag.nodeId" readonly="readonly" name="nodeId" />下添加<br /><br />
         <input type="file" id="fileid" name="upfile" /><br /><br />
         <input type="hidden" id="md5id" value="" name="md5" />
-        <input type="submit" value="提交" onclick="fillmd5()" />
+        <input type="submit" id="sub" value="提交" />
     </div>
 }
 
 
 <script>
+
     var reader = new FileReader();
     reader.onload = function (callback) {
         var md5 = hex_md5(binl2rstr(binl_md5(reader.result, reader.result.length)));
         document.getElementById("md5id").value = md5;
+        document.getElementById("upform").submit();   
     }
 
     function fillmd5() {
         reader.readAsBinaryString(document.getElementById("fileid").files[0]);
+        return false;
     }
 
 

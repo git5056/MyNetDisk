@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Abstract\NodeBase.cs" />
     <Compile Include="DownloadRecond.cs" />
+    <Compile Include="Exception\NodeException.cs" />
     <Compile Include="FileSource.cs" />
     <Compile Include="FileSourceStatistics.cs" />
     <Compile Include="Impl\UserZero.cs" />
@@ -55,7 +56,7 @@
     <Compile Include="Interface\ISessionAware.cs" />
     <Compile Include="Abstract\AbstractUserRunTime.cs" />
     <Compile Include="Interface\IUserRunTime.cs" />
-    <Compile Include="Impl\NodeTree.cs" />
+    <Compile Include="Impl\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\Session.cs" />
     <Compile Include="UploadRecond.cs" />

@@ -6,13 +6,13 @@ using NetDiskDomain;
 
 namespace NetDiskRepository
 {
-    public interface INodeTreeRepository : IRepository<NodeTree>
+    public interface INodeTreeRepository : IRepository<Node>
     {
         #region Extension Methods
 
-        IList<NodeTree> FilterByPostfix(UserZero uz, string postfix);
+        IList<Node> FilterByPostfix(UserZero uz, string postfix);
 
-        IList<NodeTree> FilterByContentType(UserZero uz, string contentType);
+        IList<Node> FilterByContentType(UserZero uz, string contentType);
 
         #endregion
     }

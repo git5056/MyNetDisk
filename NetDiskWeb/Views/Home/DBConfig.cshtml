@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "DBConfig";
+}
+
+@using (Html.BeginForm("DBConfig", "Home", FormMethod.Post))
+{
+    <div>
+        datasource:<br/>
+        <input type="text" value="@ViewBag.datasource" name="datasource" /><br /><br />
+        user:<br />
+        <input type="text" value="@ViewBag.user" name="user" /><br /><br />
+        password:<br />
+        <input type="text" value="@ViewBag.password" name="password" /><br /><br />
+        database:<br />
+        <input type="text" value="@ViewBag.database" name="database" readonly="readonly" /><br /><br />
+        <input type="submit" id="sub" value="提交" />
+    </div>
+}
+<div>点击提交后请切倒vs2013重新加载一下web.config文件</div><br />
+<div>请先将数据库文件附加到sqlserver(我的是<span style="color:red">2008</span>,不知道高版本是否会有配置问题,如果版本为其他如<span style="color:red">2010</span>且配置不成功,
+    <br/>可以试着去NetDiskRepository下NhibernateCfg.xml文件里配置 entry key="hibernate.connection.driver_class" value="NHibernate.Driver.Sql<span style="color:red">2010</span>ClientDriver" />),<br/>配置信息位于web.config下的databaseSettings节下,配置成功会跳转到Index</div>

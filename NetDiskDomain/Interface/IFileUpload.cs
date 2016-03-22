@@ -24,7 +24,7 @@ namespace NetDiskDomain
         public string PostFix;
         public FileSource Fs;
         public UploadRecond UploadRecond;
-        public NodeTree NodeTree;
+        public Node NodeTree;
         public bool IsFlash = false;
     }
 

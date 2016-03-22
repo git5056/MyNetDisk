@@ -7,7 +7,7 @@ using NetDiskRepository;
 
 namespace NetDiskService
 {
-    public class NodeTreeService : Service<NodeTree>, INodeTreeService
+    public class NodeTreeService : Service<Node>, INodeTreeService
     {
 
         #region Property
@@ -27,7 +27,7 @@ namespace NetDiskService
 
         #endregion
 
-        public IList<NodeTree> FilterByContentType(string sessionId, string contentType)
+        public IList<Node> FilterByContentType(string sessionId, string contentType)
         {
             var current=SessionService.GetCurrentUser(sessionId);
             if (current is UserZero)
@@ -37,7 +37,7 @@ namespace NetDiskService
             throw new Exception("visitor denied");
         }
 
-        public IList<NodeTree> FilterByPostfix(string sessionId, string postfix)
+        public IList<Node> FilterByPostfix(string sessionId, string postfix)
         {
             var current = SessionService.GetCurrentUser(sessionId);
             if (current is UserZero)

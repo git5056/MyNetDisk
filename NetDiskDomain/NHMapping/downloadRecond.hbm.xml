@@ -7,6 +7,6 @@
 		<property name="userId" column="userId" type="int"  />
 		<property name="downloadTime" column="downloadTime" type="DateTime"  />
     <!--<property name="nodeId" column="nodeId" type="int"  />-->
-    <many-to-one name="Node" class="NetDiskDomain.NodeTree" lazy="false" column="nodeId" unique="true"></many-to-one>
+    <many-to-one name="Node" class="NetDiskDomain.Node" lazy="false" column="nodeId" unique="true"></many-to-one>
 	</class>
 </hibernate-mapping>

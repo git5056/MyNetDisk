@@ -61,7 +61,7 @@ namespace NetDiskDomain
 
         #endregion
 
-        public DownloadRecond DownFile(NodeTree node, Func<string, bool> doDown)
+        public DownloadRecond DownFile(Node node, Func<string, bool> doDown)
         {
             throw new NotImplementedException();
         }

@@ -27,9 +27,7 @@ namespace NetDiskService
             get;
             set;
         }
-
-        
-
+    
         public Session Log(string sessionId, string userId, string userPwd)
         {
             var current = SessionService.GetCurrentUser(sessionId);
@@ -46,7 +44,6 @@ namespace NetDiskService
             }
            
         }
-
 
         public void DownloadFile(string sessionId, int nodeTreeId, Func<string, bool> doDown)
         {
@@ -98,7 +95,6 @@ namespace NetDiskService
             throw new Exception("visitor denied");
         }
 
-
         public void RenameNode(string sessionId, int childId, string name)
         {
             var current = SessionService.GetCurrentUser(sessionId);
@@ -109,7 +105,6 @@ namespace NetDiskService
             }
             throw new Exception("visitor denied");
         }
-
 
         public void MoveNode(string sessionId, int parentId, int nodeId)
         {

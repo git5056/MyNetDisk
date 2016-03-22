@@ -6,12 +6,12 @@ using NetDiskDomain;
 
 namespace NetDiskService
 {
-    public interface INodeTreeService : IService<NodeTree>
+    public interface INodeTreeService : IService<Node>
     {
         #region Extension Methods
 
-        IList<NodeTree> FilterByPostfix(string sessionId, string postfix);
-        IList<NodeTree> FilterByContentType(string sessionId, string contentType);
+        IList<Node> FilterByPostfix(string sessionId, string postfix);
+        IList<Node> FilterByContentType(string sessionId, string contentType);
 
         #endregion
     }

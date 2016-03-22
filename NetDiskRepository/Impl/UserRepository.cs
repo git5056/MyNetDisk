@@ -49,7 +49,7 @@ namespace NetDiskRepository
             }
         }
 
-        public void DownloadFile(IFileDownloader downloader, NodeTree node, Func<string, bool> doDown)
+        public void DownloadFile(IFileDownloader downloader, Node node, Func<string, bool> doDown)
         {
             if (node.FileSource == null)
             { 

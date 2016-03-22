@@ -12,8 +12,46 @@ namespace NetDiskWeb.Controllers
 {
     public class AjaxController : Controller
     {
-        //
-        // GET: /Ajax/
+
+        #region IService Property
+        public IUserService UserService
+        {
+            get
+            {
+                var iof = Spring.Context.Support.ContextRegistry.GetContext();
+                return iof.GetObject("UserService") as IUserService;
+            }
+        }
+
+        public ISessionService SessionService
+        {
+            get
+            {
+                var iof = Spring.Context.Support.ContextRegistry.GetContext();
+                return iof.GetObject("SessionService") as ISessionService;
+            }
+        }
+
+        public INodeTreeService NodeService
+        {
+            get
+            {
+                var iof = Spring.Context.Support.ContextRegistry.GetContext();
+                return iof.GetObject("NodeTreeService") as INodeTreeService;
+            }
+        }
+
+        #endregion
+
+        public IUserRunTime CurrentUser
+        {
+            get
+            {
+                return SessionService.GetCurrentUser(GetSessionId());
+            }
+        }
+
+        #region Action
 
         public ActionResult Index()
         {
@@ -22,14 +60,11 @@ namespace NetDiskWeb.Controllers
 
         public JsonResult Lazy(int ? nodeId)
         {
-
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var sessionService = iof.GetObject("SessionService") as ISessionService;
-            var currentUser = sessionService.GetCurrentUser(GetSessionId());
-            if (currentUser is UserZero)
+            if (CurrentUser is UserZero)
             {
-                var user = currentUser as UserZero;
+                var user = CurrentUser as UserZero;
                 //user.RootNode
+                //var query = for tmp in user.RootNode.GetChildInAll(nodeId.Value) gr
                 var result = ToJson(user.RootNode.GetChildInAll(nodeId.Value));
                 result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                 
@@ -40,13 +75,10 @@ namespace NetDiskWeb.Controllers
         }
 
         public JsonResult DwonRecond()
-        {
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var sessionService = iof.GetObject("SessionService") as ISessionService;
-            var currentUser = sessionService.GetCurrentUser(GetSessionId());     
-            if (currentUser is UserZero)
+        {   
+            if (CurrentUser is UserZero)
             {
-                var user = currentUser as UserZero;
+                var user = CurrentUser as UserZero;
                 JsonResult jr = new JsonResult();
                 var jslist = new List<object>();
                 //按照时间倒序查询
@@ -66,12 +98,10 @@ namespace NetDiskWeb.Controllers
 
         public JsonResult DownRank()
         {
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var sessionService = iof.GetObject("SessionService") as ISessionService;
-            var currentUser = sessionService.GetCurrentUser(GetSessionId());
-            if (currentUser is UserZero)
+
+            if (CurrentUser is UserZero)
             {
-                var user = currentUser as UserZero;
+                var user = CurrentUser as UserZero;
                 JsonResult jr = new JsonResult();
                 var jslist = new List<object>();
                 
@@ -94,14 +124,12 @@ namespace NetDiskWeb.Controllers
             {
                 return new JsonResult() { Data = new { code = 1 } };
             }
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                userService.AddNode(GetSessionId(), name, pId.Value, NodeTree.FOLDER_NODE_ID);
+                UserService.AddNode(GetSessionId(), name, pId.Value, Node.FOLDER_NODE_ID);
                 //需要返回一个id来修改节点值
-                var nodeTreeService = iof.GetObject("NodeTreeService") as INodeTreeService;
-                var pNode =  nodeTreeService.FindById(pId.Value);
+                var pNode = NodeService.FindById(pId.Value);
+                //pNode.GetChildrenInFirstGrade()
                 foreach (var i in pNode.ChildNodes)
                 {
                     if(i.name==name)
@@ -121,11 +149,9 @@ namespace NetDiskWeb.Controllers
             {
                 return new JsonResult() { Data = new { code = 1 } };
             }
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                userService.RmoveNode(GetSessionId(), nodeId.Value);
+                UserService.RmoveNode(GetSessionId(), nodeId.Value);
                 return new JsonResult() { Data = new { code = 0 } };
             }
             catch
@@ -141,11 +167,9 @@ namespace NetDiskWeb.Controllers
             {
                 return new JsonResult() { Data = new { code = 1 } };
             }
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                userService.RenameNode(GetSessionId(), nodeId.Value, newname);
+                UserService.RenameNode(GetSessionId(), nodeId.Value, newname);
                 return new JsonResult() { Data = new { code = 0 } };
             }
             catch
@@ -160,11 +184,9 @@ namespace NetDiskWeb.Controllers
             {
                 return new JsonResult() { Data = new { code = 1 } };
             }
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                userService.MoveNode(GetSessionId(), parentId.Value, nodeId.Value);
+                UserService.MoveNode(GetSessionId(), parentId.Value, nodeId.Value);
                 //返回nodeId可能会用到
                 return new JsonResult() { Data = new { code = 0 ,parentId = parentId } };
             }
@@ -183,12 +205,9 @@ namespace NetDiskWeb.Controllers
             }
             var fileName="";
             var filePath = "";
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            var userService = iof.GetObject("UserService") as IUserService;
             try
-            {
-                
-                userService.DownloadFile(
+            { 
+                UserService.DownloadFile(
                     GetSessionId(),
                     nodeId.Value,
                     (path) =>
@@ -241,11 +260,9 @@ namespace NetDiskWeb.Controllers
             {
                 return new JsonResult() { Data = new { code = 1, msg = "账号或密码为空" } };
             }
-            var iof = Spring.Context.Support.ContextRegistry.GetContext();
-            IUserService userService = iof.GetObject("UserService") as IUserService;
             try
             {
-                var session = userService.Log(Session["sessionid"] == null ? Guid.NewGuid().ToString("N") : Convert.ToString(Session["sessionid"]), userId, userPwd);
+                var session = UserService.Log(Session["sessionid"] == null ? Guid.NewGuid().ToString("N") : Convert.ToString(Session["sessionid"]), userId, userPwd);
                 Session["sessionid"] = session.sessionId;
                 return new JsonResult() { Data = new { code = 0, msg = "登录成功" } };
             }
@@ -261,9 +278,11 @@ namespace NetDiskWeb.Controllers
             return Redirect("/");
         }
 
+        #endregion
+
         #region Helper Methods
 
-        internal class NodeTreeJson
+        internal class NodeJson
         {
             public string text
             {
@@ -271,7 +290,7 @@ namespace NetDiskWeb.Controllers
                 set;
             }
 
-            public NodeTreeJsonState state
+            public NodeJsonState state
             {
                 get;
                 set;
@@ -283,7 +302,7 @@ namespace NetDiskWeb.Controllers
                 set;
             }
 
-            public IList<NodeTreeJson> children
+            public IList<NodeJson> children
             {
                 get;
                 set;
@@ -298,7 +317,7 @@ namespace NetDiskWeb.Controllers
 
         }
 
-        internal class NodeTreeJsonState
+        internal class NodeJsonState
         {
             public bool opened
             {
@@ -313,41 +332,39 @@ namespace NetDiskWeb.Controllers
             }
         }
 
-        public string GetSessionId()
+        private string GetSessionId()
         {
             return Session["sessionid"] != null ? Convert.ToString(Session["sessionid"]) : new Guid().ToString("N");
         }
 
-        private static void CloneNodeTreeToNodeTreeJson(NodeTree node,NodeTreeJson ntj)
+        private static void CloneNodeToNodeJson(Node node,NodeJson ntj)
         {
             ntj.text = node.name;
-            ntj.state = new NodeTreeJsonState() { disabled = false, opened = true };
+            ntj.state = new NodeJsonState() { disabled = false, opened = true };
             ntj.icon = !node.IsFolderNode() ? "jstree-file" : "jstree-folder";
-            ntj.children = new List<NodeTreeJson>();
+            ntj.children = new List<NodeJson>();
             ntj.id = node._id;
             foreach (var i in node.ChildNodes.ToList())
             {
                 //未被逻辑删除
                 if (i.enabled)
                 {
-                    var tmpNode = new NodeTreeJson();
+                    var tmpNode = new NodeJson();
                     tmpNode.id = i._id;
                     tmpNode.text = i.name;
-                    tmpNode.state = new NodeTreeJsonState() { disabled = false, opened = true };
+                    tmpNode.state = new NodeJsonState() { disabled = false, opened = true };
                     tmpNode.icon = !i.IsFolderNode() ? "jstree-file" : "jstree-folder";
                     ntj.children.Add(tmpNode);
-                    CloneNodeTreeToNodeTreeJson(i, tmpNode);
-
+                    CloneNodeToNodeJson(i, tmpNode);
                 }
-
             }
             //return ntj;
         }
 
-        private static JsonResult ToJson(NodeTree node){
+        private static JsonResult ToJson(Node node){
             JsonResult jr = new JsonResult();
-            NodeTreeJson ntj = new NodeTreeJson();
-            CloneNodeTreeToNodeTreeJson(node,ntj);
+            NodeJson ntj = new NodeJson();
+            CloneNodeToNodeJson(node,ntj);
             jr.Data = ntj;
             return jr;
         }

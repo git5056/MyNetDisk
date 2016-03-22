@@ -29,7 +29,7 @@ namespace NetDiskDomain
         /// <summary>
         /// The Special Node
         /// </summary>
-        public virtual NodeTree Node
+        public virtual Node Node
         {
             get;
             set;

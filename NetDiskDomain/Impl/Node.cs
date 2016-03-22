@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace NetDiskDomain
 {
     //nodeTree
-    public class NodeTree : NodeBase ,IEnumerable, IEnumerator
+    public class Node : NodeBase ,IEnumerable, IEnumerator
     {
         public static readonly int FOLDER_NODE_ID = 0;
         public static readonly int ROOT_NODE_ID = 0;
@@ -94,7 +94,7 @@ namespace NetDiskDomain
                 return bhas;
             TravelForLoop(this, n =>
             {
-                var tmp = n as NodeTree;
+                var tmp = n as Node;
                 if (tmp._id == nodeId)
                 {
                     bhas = false;
@@ -111,7 +111,7 @@ namespace NetDiskDomain
         {
             return ChildNodes != null;
         }
-        public virtual NodeTree GetChildInAll(int nodeId)
+        public virtual Node GetChildInAll(int nodeId)
         {
             if (TeyGetChild())
             {
@@ -119,10 +119,10 @@ namespace NetDiskDomain
                 {
                     return IsRootNode() ? this : null;
                 }
-                NodeTree pNode = null;
+                Node pNode = null;
                 TravelForLoop(this, n =>
                 {
-                    var tmp = n as NodeTree;
+                    var tmp = n as Node;
                     if (tmp._id == nodeId)
                     {
                         pNode = tmp;
@@ -137,7 +137,7 @@ namespace NetDiskDomain
             return null;
         }
 
-        public virtual NodeTree GetChildrenInFirstGrade(int nodeId)
+        public virtual Node GetChildrenInFirstGrade(int nodeId)
         {
             if (TeyGetChild())
             {
@@ -160,25 +160,25 @@ namespace NetDiskDomain
         /// <summary>
         /// ParentNode,mapping pid
         /// </summary>
-        public virtual NodeTree ParentNode
+        public virtual Node ParentNode
         {
             get;
             set;
         }
 
 
-        private Iesi.Collections.Generic.ISet<NodeTree> childNodes;
+        private Iesi.Collections.Generic.ISet<Node> childNodes;
 
         /// <summary>
         /// ChildNodes,mapping pid,lazy load
         /// </summary>
-        public virtual Iesi.Collections.Generic.ISet<NodeTree> ChildNodes
+        public virtual Iesi.Collections.Generic.ISet<Node> ChildNodes
         {
             get
             {
                 if (childNodes == null)
                 {
-                    childNodes = new HashedSet<NodeTree>();
+                    childNodes = new HashedSet<Node>();
                 }
                 return childNodes;
             }
@@ -199,7 +199,7 @@ namespace NetDiskDomain
             }
             set
             {
-                ChildNodes = (Iesi.Collections.Generic.ISet<NodeTree>)(value);
+                ChildNodes = (Iesi.Collections.Generic.ISet<Node>)(value);
             }
         }
 
@@ -237,7 +237,7 @@ namespace NetDiskDomain
             if (chnode != null)
             {
                 //移除目录节点以及其下的子节点
-                foreach (NodeTree i in chnode)
+                foreach (Node i in chnode)
                 {
                     i.RemoveLogical();
                 }
@@ -246,7 +246,7 @@ namespace NetDiskDomain
             //nop
         }
 
-        public virtual NodeTree AppendChild(string name, FileSource fs)
+        public virtual Node AppendChild(string name, FileSource fs)
         {
             if (!IsFolderNode())
             {
@@ -263,7 +263,7 @@ namespace NetDiskDomain
                     throw new Exception("同一层次下不能有同名节点");
                 }
             }
-            var node = new NodeTree();
+            var node = new Node();
             node.name = name;
             node.enabled = true;
             node.ParentNode = this;
@@ -272,7 +272,7 @@ namespace NetDiskDomain
             return node;
         }
 
-        public virtual NodeTree RenameChild(int childId, string name)
+        public virtual Node RenameChild(int childId, string name)
         {
             if (name == null || name.Trim().Length < 1)
             {
@@ -287,7 +287,7 @@ namespace NetDiskDomain
                 }
                 if (ParentNode != null)
                 {
-                    foreach (NodeTree i in ParentNode)
+                    foreach (Node i in ParentNode)
                     {
                         if (i.name == name && i.enabled)
                         {
@@ -311,31 +311,39 @@ namespace NetDiskDomain
         /// move the node that nodeId pointed to the node that parentId pointed
         /// return updated node
         /// </summary>
-        /// <param name="parentId"></param>
-        /// <param name="nodeId"></param>
+        /// <param name="targetId"></param>
+        /// <param name="movedId"></param>
         /// <returns></returns>
-        public virtual NodeTree Move(int parentId, int nodeId)
+        public virtual Node Move(int targetId, int movedId)
         {
-            var pNode = GetChildInAll(parentId);
-            var cNode = GetChildInAll(nodeId);
-            if (pNode == null || cNode == null)
+            var targetNode = GetChildInAll(targetId);
+            var movedNode = GetChildInAll(movedId);      
+            if (targetNode == null)
             {
-                throw new Exception("节点不存在");
+                ThrowsNodeException(string.Format("逻辑错误:未从当前节点'{0}'找到目标节点'{1}'", this.__id, targetId));
             }
-            if (cNode.HasChild(parentId))
+            if (movedNode == null)
             {
-                throw new Exception("不能将父节点移到子节点");
+                ThrowsNodeException(string.Format("逻辑错误:未从当前节点'{0}'找到被移动节点'{1}'", this.__id, movedId));
             }
-            foreach (var i in pNode.ChildNodes)
+            if (movedNode.HasChild(targetId))
             {
-                if (i.name == cNode.name)
+                ThrowsNodeException(string.Format("逻辑错误:目标节点'{0}'为待移动节点'{1}'的父节点", targetNode.__id, movedNode.__id));
+            }
+            if (!targetNode.IsFolderNode())
+            {
+                ThrowsNodeException(string.Format("逻辑错误:目标节点'{0}'为文件节点,不能添加子节点", targetNode.__id));
+            }
+            foreach (var i in targetNode.ChildNodes)
+            {
+                if (i.name == movedNode.name && i.__id != movedNode.__id)
                 {
-                    throw new Exception("同一级内不能有同名node");
+                    throw new Exception(string.Format("逻辑错误:目标节点'{0}'下已存在同名'{1}'节点", targetNode.__id, i.name));
                 }
             }
             //update
-            cNode.ParentNode = this;
-            return cNode;
+            movedNode.ParentNode = targetNode;
+            return movedNode;
         }
 
         public virtual bool IsRemoved()
@@ -350,8 +358,8 @@ namespace NetDiskDomain
         internal class EnumeratHelper
         {
             public static int CurrentIndex;
-            public static IList<NodeTree> Nodes;
-            public static void TreeToList(NodeTree node, IList<NodeTree> nodes)
+            public static IList<Node> Nodes;
+            public static void TreeToList(Node node, IList<Node> nodes)
             {
                 if (node == null)
                 {
@@ -363,10 +371,10 @@ namespace NetDiskDomain
                     TreeToList(i, nodes);
                 }
             }
-            public static void BeginEnumerat(NodeTree node)
+            public static void BeginEnumerat(Node node)
             {
                 CurrentIndex = 0;
-                Nodes = new List<NodeTree>();
+                Nodes = new List<Node>();
                 TreeToList(node, EnumeratHelper.Nodes);
             }
 
@@ -398,6 +406,15 @@ namespace NetDiskDomain
         public virtual void Reset()
         {
             EnumeratHelper.CurrentIndex = 0;
+        }
+
+        #endregion
+
+        #region Throws Exception
+
+        protected void ThrowsNodeException(string message)
+        {
+            throw new NodeException(message);
         }
 
         #endregion
