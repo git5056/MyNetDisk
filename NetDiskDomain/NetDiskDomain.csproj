@@ -59,6 +59,8 @@
     <Compile Include="Impl\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\Session.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="RoleToUser.cs" />
     <Compile Include="UploadRecond.cs" />
     <Compile Include="UserNodeMapping.cs" />
   </ItemGroup>
@@ -70,10 +72,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="NHMapping\role.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NHMapping\roleToUser.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="NHMapping\downloadRecond.hbm.xml" />
     <EmbeddedResource Include="NHMapping\fileSource.hbm.xml" />
     <Content Include="NHMapping\fileSourceStatistics.hbm.xml" />
-    <EmbeddedResource Include="NHMapping\nodeTree.hbm.xml" />
+    <EmbeddedResource Include="NHMapping\nodeTree.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="NHMapping\session.hbm.xml" />
     <EmbeddedResource Include="NHMapping\uploadRecond.hbm.xml" />
     <EmbeddedResource Include="NHMapping\userNodeMapping.hbm.xml" />

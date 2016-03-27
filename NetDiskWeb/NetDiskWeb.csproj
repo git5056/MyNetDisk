@@ -121,6 +121,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorize\APrincipal.cs" />
+    <Compile Include="Authorize\AUser.cs" />
+    <Compile Include="Authorize\AuthorizeFilter.cs" />
+    <Compile Include="Authorize\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Authorize\GetRoles.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -132,6 +137,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="ActionRoles.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\Image\65.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Lib\js\jquery.nicescroll.js" />

@@ -285,9 +285,9 @@ namespace NetDiskDomain
                 {
                     throw new Exception("不能重命名自己");
                 }
-                if (ParentNode != null)
+                if (child.ParentNode != null)
                 {
-                    foreach (Node i in ParentNode)
+                    foreach (Node i in child.ParentNode.ChildNodes)
                     {
                         if (i.name == name && i.enabled)
                         {

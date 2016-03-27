@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="NetDiskDomain" namespace="NetDiskDomain">
+	<class name="NetDiskDomain.RoleToUser, NetDiskDomain" table="roleToUser">
+		<id name="_id" column="_id" type="int" unsaved-value="0">
+      			<generator class="native" />       			
+      	</id>      		
+		<property name="_id" column="_id" type="int"  insert="false" update="false" />
+		<property name="userId" column="userId" type="int"  />
+		<!--<property name="roleId" column="roleId" type="int"  />-->
+    <many-to-one name="role" class="NetDiskDomain.Role" lazy="false" column="roleId" unique="true"></many-to-one>
+				
+	</class>
+</hibernate-mapping>

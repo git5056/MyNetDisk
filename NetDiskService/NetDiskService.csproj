@@ -42,6 +42,10 @@
     <Compile Include="Impl\DownloadRecondService.cs" />
     <Compile Include="Impl\FileSourceService.cs" />
     <Compile Include="Impl\FileSourceStatisticsService.cs" />
+    <Compile Include="Impl\RoleService.cs" />
+    <Compile Include="Impl\RoleToUserService.cs" />
+    <Compile Include="Interface\IRoleService.cs" />
+    <Compile Include="Interface\IRoleToUserService.cs" />
     <Compile Include="Interface\ISessionService.cs" />
     <Compile Include="Impl\NodeTreeService.cs" />
     <Compile Include="Impl\Service.cs" />
@@ -61,7 +65,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ServiceBeanCfg.xml" />
+    <EmbeddedResource Include="ServiceBeanCfg.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="TransactionCfg.xml" />
   </ItemGroup>
   <ItemGroup />

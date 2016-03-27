@@ -50,6 +50,21 @@
     </property>
   </object>
 
+  <object id="RoleService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.RoleService,NetDiskService">
+        <property name="Repository" ref="repository.role"/>
+      </object>
+    </property>
+  </object>
+
+  <object id="RoleToUserService" parent="BaseTransactionManager">
+    <property name="Target">
+      <object type="NetDiskService.RoleToUserService,NetDiskService">
+        <property name="Repository" ref="repository.roleToUser"/>
+      </object>
+    </property>
+  </object>
 
 
   <object id="SessionService" parent="BaseTransactionManager">

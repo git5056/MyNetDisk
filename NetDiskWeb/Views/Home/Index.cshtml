@@ -14,7 +14,6 @@
     <style type="text/css">
         body {
             background: url('../../Content/Image/65.jpg') no-repeat fixed center center;
-    
         }
 
         .clear {
@@ -139,7 +138,7 @@
             <div class="content">
                 <div>
                     <div class="tools" style="background-color:blue;height:30px; ">
-
+                        <input type="button" id="newfolder" value="新建文件夹" style="" />
                         <input type="button" value="下载文件" style="" onclick="down_file()" />
                         <input type="button" value="上传文件" style="" onclick="up_file()" />
                     </div>
@@ -320,58 +319,6 @@
     </script>
 
     <script>
-  
-        function create_node_remote(pid, name, callback) {
-            $.ajax("/ajax/CreateDir?" + "pId=" + pid + "&name=" + name, {
-                type: 'post',
-                //async:false,
-                success: function (data) {
-                    result = data.code == 0;
-                    if (result)
-                        callback(true, data.nodeId);
-                    else {
-                        callback(false, data.msg);
-                    }
-                },
-            });
-        }
-
-        function delete_node_remote(nodeId, callback) {
-            $.ajax("/ajax/DeleteNode?" + "nodeId=" + nodeId, {
-                type: 'post',
-                //async:false,
-                success: function (data) {
-                    result = data.code == 0;
-                    callback(result);
-                }
-            })
-        }
-
-        function rename_node_remote(nodeId, newname, callback) {
-            $.ajax("/ajax/RenameNode?" + "nodeId=" + nodeId + "&newname="+newname, {
-                type: 'post',
-                //async:false,
-                success: function (data) {
-                    result = data.code == 0;
-                    callback(result);
-                }
-            })
-        }
-
-        function move_node_remote(parentId, nodeId, callback) {
-            $.ajax("/ajax/MoveNode?" + "parentId=" + parentId + "&nodeId=" + nodeId, {
-                type: 'post',
-                //async:false,
-                success: function (data) {
-                    var result = data.code == 0;
-                    if (result)
-                        callback(true,data.nodeId);
-                    else
-                        callback(false)
-                }
-            })
-        }
-
 
         //暂不考虑文件夹下载
         function down_file(nodeId) {
@@ -386,92 +333,210 @@
         function up_file() {
             var ref = $('#lazy').jstree(true),
             sel = ref.get_selected();
-            if (!sel.length) { return false; }
-            if (ref.get_icon(sel[0]) == "jstree-file") { return false; }
-            sel = sel[0];
-            window.open("/Home/UploadFile?" + "nodeId=" + sel, "_blank");
+            if (!sel.length) { sel = 0;/* return false; */}
+            else if (ref.get_icon(sel[0]) == "jstree-file") { sel = ref.get_parent(sel[0]);   /*return false;*/ }
+            else sel = sel[0];
+            window.open("/Home/FileUpload?" + "nodeId=" + sel, "_blank");
         }
 
-        var is_create_dir = false;
-        $('#lazy')
-            .bind("select_node.jstree", function (event, data) {
-                //ref.select_node(data.node);
-            })
-            .bind("move_node.jstree", function (e, data) {
-                move_node_remote(data.parent, data.node.id, function (bresult,nodId) {
+        (function jstree_init() {
+            var $ref_tree = {},
+                is_deleting = true,
+                is_create_dir = false
+            ;
 
-                    //失败，回退
-                    if (!bresult) {
-                        var ref = $('#lazy').jstree(true);
-                        ref.move_node(data.node.id, data.old_parent);
-                    }
+            function load_node_remote(nodeId) {
+                $.ajax("/ajax/lazy?" + "nodeId=" + nodeId, {
+                    type: 'post',
+                    async:false,
+                    success: function (data) {
+                        $.each(data, function (entryIndex, entry) {
+                            $ref_tree.create_node(nodeId, entry, entryIndex + 1);
+                        });
+                    },
                 });
-            })
-            .bind("create_node.jstree", function (event, data) {
-                is_create_dir = true;
-                return false;
+            }
 
-            })
-            .bind("rename_node.jstree", function (event, data) {
-
-                //create new dir
-                if (is_create_dir) {
-                    create_node_remote(data.node.parent, data.text, function (bresult, nodeId) {
-                        //success,update node id
-                        if (bresult) {
-                            var ref = $('#lazy').jstree(true);
-                            ref.set_id(data.node, nodeId + "");
-                        }
-                        //failure,delete node
+            function create_node_remote(pid, name, callback) {
+                $.ajax("/ajax/CreateDir?" + "pId=" + pid + "&name=" + name, {
+                    type: 'post',
+                    //async:false,
+                    success: function (data) {
+                        result = data.code == 0;
+                        if (result)
+                            callback(true, data.nodeId);
                         else {
-                            $('#lazy').jstree(true).delete_node(data.node);
-                            alert('失败');                  
+                            callback(false, data.msg);
                         }
-                    });
-                    is_create_dir = false;
-                }
-                    //rename
-                else {
-                    rename_node_remote(data.node.id, data.text, function (bresult) {
-                        if (!bresult) {
-                            var ref = $('#lazy').jstree(true);
-                            ref.set_text(data.node,  data.old);
-                            alert('失败');
-                        }
-                    });
-                }
-            })
-            .bind("delete_node.jstree", function (e, data) {
-                delete_node_remote(data.node.id, function (bresult) {
-                    if (!bresult) {
-                        alert('失败');
-                    }
+                    },
                 });
-            })
-            .jstree({
-                "core": {
-                    "animation": 0,
-                    "check_callback": true,
-                    'force_text': true,
-                    "themes": { "stripes": true },
-                    'data': {
-                        'url': function (node) {
-                            return node.id === '#' ? "/ajax/lazy?nodeId=0" : "/ajax/lazy?nodeId=" + node.id;
-                        },
-                        'data': function (node, cb) {
-                            return { 'id': node.id };
+            }
+
+            function delete_node_remote(nodeId, callback) {
+                if (is_deleting) {
+                    $.ajax("/ajax/DeleteNode?" + "nodeId=" + nodeId, {
+                        type: 'post',
+                        //async:false,
+                        success: function (data) {
+                            result = data.code == 0;
+                            callback(result);
                         }
+                    });
+                    is_deleting = true;
+                }
+
+            }
+
+            function rename_node_remote(nodeId, newname, callback) {
+                $.ajax("/ajax/RenameNode?" + "nodeId=" + nodeId + "&newname=" + newname, {
+                    type: 'post',
+                    //async:false,
+                    success: function (data) {
+                        result = data.code == 0;
+                        callback(result);
                     }
-                },
-                "types": {
-                    "#": { "max_children": 1, "max_depth": 5, "valid_children": ["root"] },
-                    "root": { "valid_children": ["default"] },//"icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png",
-                    "default": { "valid_children": ["default", "file"] },
-                    "file": { "icon": "glyphicon glyphicon-file", "valid_children": [] }
-                },
-                "plugins": ["dnd", "state", "contextmenu", "search", "types"]// "wholerow"
+                })
+            }
+
+            function move_node_remote(parentId, nodeId, callback) {
+
+                $.ajax("/ajax/MoveNode?" + "parentId=" + parentId + "&nodeId=" + nodeId, {
+                    type: 'post',
+                    //async:false,
+                    success: function (data) {
+                        var result = data.code == 0;
+                        if (result)
+                            callback(true, data.nodeId);
+                        else
+                            callback(false)
+                    }
+                })
+            }
+
+            $("#newfolder").click(function () {
+                    //jstree3.21 (添加根节点bug?????????????????????????????/)
+                    //$("#lazy").jstree("create", null, "inside"); //works!
+                    //$("#tree").jstree("create_node", $("node_1"), "after", { "data": "Hello World" });
+                    //$("#lazy").jstree("create_node", 0, 'inside');
+                    //$("#lazy").jstree("create_node", "#", "aaa", "first", false, true);
+                    //$("#lazy").jstree("create_node", null, null, "last", "createRootNode", true);
+                    //$.jstree.create($("#lazy"), { "text": "aaaaaaa" });
+                    //$("#lazy").jstree("create_node", -1, false, "mmmmmmmmm", false, true);
+                    //$ref_tree.create_node('#','dfgh');
+                    //$("#lazy").jstree('_append_json_data', '#', { 'id': 'myId', 'text': 'My Text' }, 'last');
+                    create_node_remote(0, "新建文件夹", function (bResult) {
+                        if (bResult) {
+                            $ref_tree.refresh(false,false);
+                        }
+                        else {
+                            alert("根目录下已存在名为'新建文件夹'的文件夹");
+                        }
+                    });
+
+
             });
-        $('#lazy').jstree(true).hide_dots();
+
+
+            $('#lazy')
+                .bind("select_node.jstree", function (event, data) {
+                    //ref.select_node(data.node);
+                })
+                .bind("before_open.jstree", function (event, data) {
+                    //delete place holder and all pre cjildnodes
+                    is_deleting = false;
+                    var cdom = $ref_tree.get_children_dom(data.node.id);
+                    $(cdom).each(function (idx, entrty) {
+                        $ref_tree.delete_node(entrty.id);
+                    });
+                    is_deleting = true;
+                })
+                .bind("open_node.jstree", function (event, data) {
+                    //do load node
+                    load_node_remote(data.node.id);
+                })
+                .bind("move_node.jstree", function (e, data) {
+                    move_node_remote(data.parent, data.node.id, function (bresult, nodId) {
+
+                        //失败，回退
+                        if (!bresult) {
+                            $ref_tree.move_node(data.node.id, data.old_parent);
+                        }
+                    });
+                })
+                .bind("create_node.jstree", function (event, data) {
+                    is_create_dir = true;
+                    return false;
+
+                })
+                .bind("rename_node.jstree", function (event, data) {
+                    //create new dir
+                    if (is_create_dir) {
+                        alert('create call');
+                        create_node_remote(data.node.parent, data.text, function (bresult, nodeId) {
+                            //success,update node id
+                            if (bresult) {
+                                $ref_tree.set_id(data.node, nodeId + "");
+                            }
+                                //failure,delete node
+                            else {
+                                is_deleting = false;
+                                $ref_tree.delete_node(data.node);
+                                is_deleting = true;
+                                alert('失败');
+                            }
+                        });
+                        is_create_dir = false;
+                    }
+                        //rename
+                    else {
+                        rename_node_remote(data.node.id, data.text, function (bresult) {
+                            if (!bresult) {
+                                var ref = $('#lazy').jstree(true);
+                                ref.set_text(data.node, data.old);
+                                alert('失败f');
+                            }
+                        });
+                    }
+                })
+                .bind("delete_node.jstree", function (e, data) {
+                    if (is_deleting) {
+                        delete_node_remote(data.node.id, function (bresult) {
+                            if (!bresult) {
+                                alert('失败');
+                            }
+                        });
+                        is_deleting = true;
+                    }
+                })
+                .jstree({
+                    "core": {
+                        "animation": 0,
+                        "check_callback": true,
+                        'force_text': true,
+                        "themes": { "stripes": true },
+                        'data': {
+                            'url': function (node) {
+                                return node.id === '#' ? "/ajax/lazy?nodeId=0" : "/ajax/lazy?nodeId=" + node.id;
+                            },
+                            'data': function (node, cb) {
+                                return { 'id': node.id };
+                            }
+                        }
+                    },
+                    "types": {
+                        "#": { "max_children": 1, "max_depth": 5, "valid_children": ["root"] },
+                        "root": { "valid_children": ["default"] },//"icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png",
+                        "default": { "valid_children": ["default", "file"] },
+                        "file": { "icon": "glyphicon glyphicon-file", "valid_children": [] }
+                    },
+                    "plugins": ["dnd", "state", "contextmenu", "search", "types"]// "wholerow"
+                });
+            
+            $('#lazy').jstree(true).hide_dots();
+            $ref_tree = $('#lazy').jstree(true);
+        })();
+  
+
     </script>
 </body>
 </html>

@@ -63,6 +63,8 @@
     <Compile Include="Impl\FileSourceStatisticsRepository.cs" />
     <Compile Include="Impl\NodeTreeRepository.cs" />
     <Compile Include="Impl\Repository.cs" />
+    <Compile Include="Impl\RoleRepository.cs" />
+    <Compile Include="Impl\RoleToUserRepository.cs" />
     <Compile Include="Impl\SessionRepository.cs" />
     <Compile Include="Impl\UploadRecondRepository.cs" />
     <Compile Include="Impl\UserNodeMappingRepository.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="Interface\IFileSourceStatisticsRepository.cs" />
     <Compile Include="Interface\INodeTreeRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IRoleRepository.cs" />
+    <Compile Include="Interface\IRoleToUserRepository.cs" />
     <Compile Include="Interface\ISessionRepository.cs" />
     <Compile Include="Interface\IUploadRecondRepository.cs" />
     <Compile Include="Interface\IUserNodeMappingRepository.cs" />
@@ -80,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NhibernateCfg.xml" />
-    <EmbeddedResource Include="RepositoryCfg.xml" />
+    <EmbeddedResource Include="RepositoryCfg.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetDiskDomain\NetDiskDomain.csproj">

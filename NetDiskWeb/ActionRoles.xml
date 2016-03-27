@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Roles>
+  <Controller name="Home">
+    <Action name="Index"></Action>
+    <Action name="DBConfig">vip0</Action>
+    <Action name="FileUpload">vip5</Action>
+  </Controller>
+</Roles>

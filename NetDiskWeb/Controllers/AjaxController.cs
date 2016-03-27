@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace NetDiskWeb.Controllers
 {
@@ -65,10 +66,13 @@ namespace NetDiskWeb.Controllers
                 var user = CurrentUser as UserZero;
                 //user.RootNode
                 //var query = for tmp in user.RootNode.GetChildInAll(nodeId.Value) gr
-                var result = ToJson(user.RootNode.GetChildInAll(nodeId.Value));
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                
-                return result;
+                //var result = ToJson(user.RootNode.GetChildInAll(nodeId.Value));
+                var aimNode = user.RootNode.GetChildInAll(nodeId.Value);
+                var query = from node in aimNode.ChildNodes where !node.IsRemoved() orderby node.IsFolderNode() descending, node.name ascending select new { id = node._id, text = node.name, children = node.IsFolderNode() && node.ChildNodes.Count > 0 ? new object[] { " place holder" } : null, state="closed", icon = !node.IsFolderNode() ? "jstree-file" : "jstree-folder" };
+                var jResult = new JsonResult();
+                jResult.Data = query.ToArray();
+                jResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                return jResult;
             }
             else
                 return null;
@@ -128,12 +132,14 @@ namespace NetDiskWeb.Controllers
             {
                 UserService.AddNode(GetSessionId(), name, pId.Value, Node.FOLDER_NODE_ID);
                 //需要返回一个id来修改节点值
-                var pNode = NodeService.FindById(pId.Value);
-                //pNode.GetChildrenInFirstGrade()
+
+                var pNode = (CurrentUser as UserZero).RootNode.GetChildInAll(pId.Value);
                 foreach (var i in pNode.ChildNodes)
                 {
-                    if(i.name==name)
+                    if (!i.IsRemoved() && i.name == name)
+                    {
                         return new JsonResult() { Data = new { code = 0, nodeId = i._id } };
+                    }
                 }
                 return new JsonResult() { Data = new { code = 1 } };
             }
@@ -264,6 +270,7 @@ namespace NetDiskWeb.Controllers
             {
                 var session = UserService.Log(Session["sessionid"] == null ? Guid.NewGuid().ToString("N") : Convert.ToString(Session["sessionid"]), userId, userPwd);
                 Session["sessionid"] = session.sessionId;
+                FormsAuthentication.SetAuthCookie(session._User._id.ToString(), /*true*/false);
                 return new JsonResult() { Data = new { code = 0, msg = "登录成功" } };
             }
             catch
@@ -275,6 +282,8 @@ namespace NetDiskWeb.Controllers
         public RedirectResult LogOff()
         {
             Session["sessionid"] = null;
+            //清除权限
+            FormsAuthentication.SignOut();
             return Redirect("/");
         }
 
@@ -282,92 +291,96 @@ namespace NetDiskWeb.Controllers
 
         #region Helper Methods
 
-        internal class NodeJson
-        {
-            public string text
-            {
-                get;
-                set;
-            }
-
-            public NodeJsonState state
-            {
-                get;
-                set;
-            }
-
-            public string icon
-            {
-                get;
-                set;
-            }
-
-            public IList<NodeJson> children
-            {
-                get;
-                set;
-            }
-
-            //ex
-            public int id
-            {
-                get;
-                set;
-            }
-
-        }
-
-        internal class NodeJsonState
-        {
-            public bool opened
-            {
-                get;
-                set;
-            }
-
-            public bool disabled
-            {
-                get;
-                set;
-            }
-        }
-
         private string GetSessionId()
         {
             return Session["sessionid"] != null ? Convert.ToString(Session["sessionid"]) : new Guid().ToString("N");
         }
 
-        private static void CloneNodeToNodeJson(Node node,NodeJson ntj)
-        {
-            ntj.text = node.name;
-            ntj.state = new NodeJsonState() { disabled = false, opened = true };
-            ntj.icon = !node.IsFolderNode() ? "jstree-file" : "jstree-folder";
-            ntj.children = new List<NodeJson>();
-            ntj.id = node._id;
-            foreach (var i in node.ChildNodes.ToList())
-            {
-                //未被逻辑删除
-                if (i.enabled)
-                {
-                    var tmpNode = new NodeJson();
-                    tmpNode.id = i._id;
-                    tmpNode.text = i.name;
-                    tmpNode.state = new NodeJsonState() { disabled = false, opened = true };
-                    tmpNode.icon = !i.IsFolderNode() ? "jstree-file" : "jstree-folder";
-                    ntj.children.Add(tmpNode);
-                    CloneNodeToNodeJson(i, tmpNode);
-                }
-            }
-            //return ntj;
-        }
+        #region jstree_json
 
-        private static JsonResult ToJson(Node node){
-            JsonResult jr = new JsonResult();
-            NodeJson ntj = new NodeJson();
-            CloneNodeToNodeJson(node,ntj);
-            jr.Data = ntj;
-            return jr;
-        }
+        //internal class NodeJson
+        //{
+        //    public string text
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //    public NodeJsonState state
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //    public string icon
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //    public IList<NodeJson> children
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //    //ex
+        //    public int id
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //}
+
+        //internal class NodeJsonState
+        //{
+        //    public bool opened
+        //    {
+        //        get;
+        //        set;
+        //    }
+
+        //    public bool disabled
+        //    {
+        //        get;
+        //        set;
+        //    }
+        //}
+
+        //private static void CloneNodeToNodeJson(Node node,NodeJson ntj)
+        //{
+        //    ntj.text = node.name;
+        //    ntj.state = new NodeJsonState() { disabled = false, opened = true };
+        //    ntj.icon = !node.IsFolderNode() ? "jstree-file" : "jstree-folder";
+        //    ntj.children = new List<NodeJson>();
+        //    ntj.id = node._id;
+        //    foreach (var i in node.ChildNodes.ToList())
+        //    {
+        //        //未被逻辑删除
+        //        if (i.enabled)
+        //        {
+        //            var tmpNode = new NodeJson();
+        //            tmpNode.id = i._id;
+        //            tmpNode.text = i.name;
+        //            tmpNode.state = new NodeJsonState() { disabled = false, opened = true };
+        //            tmpNode.icon = !i.IsFolderNode() ? "jstree-file" : "jstree-folder";
+        //            ntj.children.Add(tmpNode);
+        //            CloneNodeToNodeJson(i, tmpNode);
+        //        }
+        //    }
+        //    //return ntj;
+        //}
+
+        //private static JsonResult ToJson(Node node){
+        //    JsonResult jr = new JsonResult();
+        //    NodeJson ntj = new NodeJson();
+        //    CloneNodeToNodeJson(node,ntj);
+        //    jr.Data = ntj;
+        //    return jr;
+        //}
+
+        #endregion
 
         #endregion
     }

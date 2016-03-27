@@ -1,11 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "FileUpload";
     
 }
 
 
 
-@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { id="upform", enctype = "multipart/form-data",onsubmit="return fillmd5()" })){
+@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post, new { id = "upform", enctype = "multipart/form-data", onsubmit = "return fillmd5()" }))
+{
 
     
         @*//@Html.LabelFor(model => mel.Pictures)*@

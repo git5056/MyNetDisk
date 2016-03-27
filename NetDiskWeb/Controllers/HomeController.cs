@@ -8,7 +8,7 @@ using System.IO;
 using NetDiskDomain;
 using System.Configuration;
 using System.Xml;
-
+using System.Web.Security;
 
 namespace NetDiskWeb.Controllers
 {
@@ -55,42 +55,53 @@ namespace NetDiskWeb.Controllers
 
         #endregion
 
-        #region Staic Methods
-
-        //[HandleError(View = "DBConfig", ExceptionType = typeof(Exception))]
-        //public static IUserRunTime CurrentUser()
-        //{
-        //    try
-        //    {
-        //        var iof = Spring.Context.Support.ContextRegistry.GetContext();
-        //        var sessionService = iof.GetObject("SessionService") as ISessionService;
-        //        var currentUser = sessionService.GetCurrentUser(System.Web.HttpContext.Current.Session["sessionid"] == null ? Guid.NewGuid().ToString("N") : Convert.ToString(System.Web.HttpContext.Current.Session["sessionid"]));
-        //        return currentUser;
-        //    }
-        //    catch (ConfigurationErrorsException e)
-        //    {
-        //        throw e;     
-        //    }
-        //}
-
-        public IUserRunTime CurrentUser
+        public ActionResult LogOn(string returnUrl)
         {
-            get
+            if (ModelState.IsValid)
             {
-                return SessionService.GetCurrentUser(GetSessionId());
+                if (Session["aa"] == null)
+                {
+                    //HttpContext.User = new APrincipal("aaaaaaaaa");
+                    var role = "Admine";
+                    Session["aa"] = role;
+
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1,
+                               "Adminb",
+                                DateTime.Now,
+                                DateTime.Now.AddMinutes(30),
+                                false,
+                                null);
+                    //string encTicket = FormsAuthentication.Encrypt(authTicket);
+                    //this.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                    FormsAuthentication.SetAuthCookie("Admin", true);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
+            else
+            {
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            }
+            // If we got this far, something failed, redisplay form
+            return null;
         }
-
-        private string GetSessionId()
-        {
-            return Session["sessionid"] != null ? Convert.ToString(Session["sessionid"]) : new Guid().ToString("N");
-        }
-
-        #endregion
 
         #region Action
 
         //[HandleError(View = "DBConfig", ExceptionType = typeof(Exception))]
+
+        //[CustomAuthorizeAttribute]
         public ActionResult Index()
         {
             try
@@ -98,13 +109,14 @@ namespace NetDiskWeb.Controllers
                 return View(CurrentUser);
             }
             //跳转到数据库配置
-            catch (Exception e)
+            catch (ConfigurationErrorsException e)
             {
                 return RedirectToAction("DBConfig");
             }
         }
 
-        //view
+
+        [HttpGet]
         public ActionResult DBConfig()
         {
             XmlDocument doc = new XmlDocument();
@@ -148,15 +160,14 @@ namespace NetDiskWeb.Controllers
             return Redirect("/");
         }
 
-        //view
+        [CustomAuthorizeAttribute]
         [HttpGet]
         public ActionResult FileUpload(int? nodeId)
         {
-            ViewBag.nodeId = nodeId.HasValue && nodeId.Value > 0 ? nodeId.Value : -1;
+            ViewBag.nodeId = nodeId.HasValue && nodeId.Value > 0 ? nodeId.Value : 0;
             return View();
         }
 
-        //action
         [HttpPost]
         public ActionResult FileUpload(HttpPostedFileBase upfile)
         {
@@ -216,6 +227,23 @@ namespace NetDiskWeb.Controllers
             {
                 return View();
             }
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        public IUserRunTime CurrentUser
+        {
+            get
+            {
+                return SessionService.GetCurrentUser(GetSessionId());
+            }
+        }
+
+        private string GetSessionId()
+        {
+            return Session["sessionid"] != null ? Convert.ToString(Session["sessionid"]) : new Guid().ToString("N");
         }
 
         #endregion
