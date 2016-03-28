@@ -12,7 +12,7 @@ namespace NetDiskRepository
 
         IList<Node> FilterByPostfix(UserZero uz, string postfix);
 
-        IList<Node> FilterByContentType(UserZero uz, string contentType);
+        IList<Node> FilterByContentType(UserZero uz, string [] contentType);
 
         #endregion
     }

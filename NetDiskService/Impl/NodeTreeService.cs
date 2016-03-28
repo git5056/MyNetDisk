@@ -27,7 +27,7 @@ namespace NetDiskService
 
         #endregion
 
-        public IList<Node> FilterByContentType(string sessionId, string contentType)
+        public IList<Node> FilterByContentType(string sessionId, string [] contentType)
         {
             var current=SessionService.GetCurrentUser(sessionId);
             if (current is UserZero)

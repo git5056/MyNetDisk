@@ -193,13 +193,13 @@
                 //异步加载图片Part
             else if (index == 1) {
                 $(".pic-main").html(
-                    loadcon("/ajax/FilterFile?content=image/png")
+                    loadcon("/ajax/FilterFile?content=image/png,image/jpeg")
                     );
             }
                 //异步加载文档Part
             else if (index == 2) {
                 $(".text-main").html(
-                loadcon("/ajax/FilterFile?content=text/plain")
+                loadcon("/ajax/FilterFile?content=text/plain,text/xml")
                 );
             }
                 //异步加载视频Part
@@ -223,7 +223,7 @@
                 //异步加载其他Part
             else if (index == 6) {
                 $(".other-main").html(
-                loadcon("/ajax/FilterFile?content=other")
+                loadcon("/ajax/FilterFile?content=application/octet-stream,application/vnd.openxmlformats-officedocument.wordprocessingml.document")
             );
             }
                 //异步加载下载记录Part
@@ -351,14 +351,16 @@
                     async:false,
                     success: function (data) {
                         $.each(data, function (entryIndex, entry) {
+                            is_create_dir = false;
                             $ref_tree.create_node(nodeId, entry, entryIndex + 1);
+                            is_create_dir = false;
                         });
                     },
                 });
             }
 
             function create_node_remote(pid, name, callback) {
-                $.ajax("/ajax/CreateDir?" + "pId=" + pid + "&name=" + name, {
+                $.ajax("/ajax/CreateDir?" + "pId=" + (pid=="#"?0:pid) + "&name=" + name, {
                     type: 'post',
                     //async:false,
                     success: function (data) {
@@ -471,7 +473,6 @@
                 .bind("rename_node.jstree", function (event, data) {
                     //create new dir
                     if (is_create_dir) {
-                        alert('create call');
                         create_node_remote(data.node.parent, data.text, function (bresult, nodeId) {
                             //success,update node id
                             if (bresult) {
@@ -493,7 +494,7 @@
                             if (!bresult) {
                                 var ref = $('#lazy').jstree(true);
                                 ref.set_text(data.node, data.old);
-                                alert('失败f');
+                                alert('失败');
                             }
                         });
                     }

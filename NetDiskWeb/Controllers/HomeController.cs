@@ -115,7 +115,6 @@ namespace NetDiskWeb.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult DBConfig()
         {

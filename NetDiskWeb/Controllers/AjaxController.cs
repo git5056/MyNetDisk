@@ -231,6 +231,7 @@ namespace NetDiskWeb.Controllers
             }
         }
 
+        //xxx,xx,xxx,xxx
         public JsonResult FilterFile(string content)
         {
             var jr = new JsonResult();
@@ -243,8 +244,7 @@ namespace NetDiskWeb.Controllers
             var nodeTreeService = iof.GetObject("NodeTreeService") as INodeTreeService;
             try
             {
-                var nodes = nodeTreeService.FilterByContentType(GetSessionId(), content);
-
+                var nodes = nodeTreeService.FilterByContentType(GetSessionId(), content.Split(new char[]{ ','},StringSplitOptions.RemoveEmptyEntries) );
                 var data = new List<object>();
                 foreach (var i in nodes)
                 {

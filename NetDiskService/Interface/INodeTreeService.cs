@@ -11,7 +11,7 @@ namespace NetDiskService
         #region Extension Methods
 
         IList<Node> FilterByPostfix(string sessionId, string postfix);
-        IList<Node> FilterByContentType(string sessionId, string contentType);
+        IList<Node> FilterByContentType(string sessionId, string [] contentType);
 
         #endregion
     }
